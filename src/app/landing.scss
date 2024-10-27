@@ -1,0 +1,256 @@
+.background {
+    background-color: #000000;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    min-width: 1000px;
+    object-fit: cover;
+}
+
+.invisible-button {
+    position: relative;
+    display: flex;
+    color: currentColor;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+header {
+    z-index: 10;
+    display: flex;
+    position: sticky;
+    top: 0;
+    flex-direction: row;
+    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #000000;
+
+    width: 100%;
+    height: 60px;
+
+    .nahual-logo {
+        position: relative;
+        top: 15px;
+        left: 5px;
+        cursor: pointer;
+    }
+
+    h1 {
+        position: relative;
+        font-size: 1rem;
+        color: #fff;
+        padding-left: 15px;
+        margin: 0;
+    }
+}
+
+section {
+    position: relative;
+
+    left: 10%;
+    width: 40%;
+    padding-top: 5vh;
+    min-width: 400px;
+    min-height: 90vh;
+    max-width: 1200px;
+
+    &.right-side {
+        position: fixed;
+
+        width: 40%;
+        right: 0;
+        left: unset;
+
+        .wheel {
+            position: absolute;
+            width: calc(400px + 15rem);
+            height: calc(400px + 15rem);
+            bottom: -200px;
+            right: -100px;
+            animation: rotation 120s linear infinite;
+        }
+
+        .playwheel {
+            position: absolute;
+            width: 10rem;
+            height: 10rem;
+            bottom: calc(300px + 0.85rem);
+            right: 150px;
+            animation: rotation 60s linear infinite reverse;
+        }
+
+        .playbutton {
+            position: absolute;
+            width: 5rem;
+            height: 5rem;
+            bottom: calc(300px + 0.85rem + 2.5rem);
+            right: calc(150px + 2.5rem);
+
+            transition: mask-image 1s ease-in-out;
+            mask-image: linear-gradient(to top, transparent 0%, #16f7254b);
+
+            cursor: grab;
+
+            &:hover {
+                scale: 1.02;
+                mask-image: linear-gradient(to top, black 0%, black 100%);
+                filter: brightness(0.5);
+                animation: pulse 3s linear infinite;
+            }
+
+            &:active {
+                scale: 0.99;
+            }
+        }
+    }
+
+    &.intro,
+    &.how-it-works,
+    &.prediction-formula,
+    &.practical-application {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        text-align: right;
+        flex-direction: column;
+
+        h2,
+        h3 {
+            flex: 1;
+            color: #B0A204;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #07bb52;
+        }
+
+        p,
+        ul,
+        li {
+            flex: 1;
+            color: #dadada;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .arrow-down {
+            width: calc(30px + 1rem);
+            height: calc(30px + 1rem);
+            background-color: transparent;
+
+            &:hover {
+                scale: 1.05;
+            }
+        }
+    }
+
+    &.how-it-works,
+    &.practical-application {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    &.practical-application {
+        .under-photo {
+            position: relative;
+            color: #dadada;
+            max-width: 150px;
+            padding: 10px 0;
+        }
+
+        .step {
+            display: flex;
+            position: relative;
+
+            &__one {
+                position: relative;
+                margin-top: -50px;
+                .flower {
+                    position: absolute;
+                    margin-left: 80px;
+                }
+                .photo {
+                    position: relative;
+                    margin-top: 95px;
+                }
+            }
+
+            &__two {
+                position: relative;
+                display: flex;
+                padding-right: calc(2rem + 5vw);
+                margin-top: -20px;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-end;
+
+                .flower {
+                    position: absolute;
+                    margin-top: 10px;
+                    margin-right: calc(0.5rem + 0.5vw);
+                }
+
+                .photo {
+                    position: relative;
+                }
+            }
+
+            &__three {
+                margin-top: -30px;
+                margin-left: calc(10px + 1vw);
+
+                .under-photo {
+                    margin-left: calc(5px + 1vw);
+                }
+            }
+        }
+    }
+
+    &.pricing {
+        display: flex;
+        justify-content: space-between;
+        background-color: #eceff1;
+
+        .tariff {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 30%;
+
+            h4 {
+                margin: 0 0 10px;
+                color: #333;
+            }
+
+            p {
+                color: #666;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    padding: 40px;
+
+    .action-button {
+        margin: 0 10px;
+        padding: 15px 30px;
+        background-color: #00796b;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #004d40;
+        }
+    }
+}

@@ -139,38 +139,59 @@ const PredictionFormula = () => (
 
 const PracticalApplication = () => (
   <section className="practical-application">
+
     <h2>Применение на практике с помощью нашей нейросети:</h2>
 
-    <div className="step__one">
-      <Image src="/flower1.png" alt="Шаг 1" width={320} height={350} className="step_one flower" />
-      <Image src="/photohand.png" alt="Шаг 1" width={120} height={130} className="step__one photo" />
+    <div className="showcase">
+      <div className="step__one">
+        <Image src="/flower1.png" alt="Шаг 1" width={320} height={350} className="step_one flower" />
+        <Image src="/photohand.png" alt="Шаг 1" width={150} height={180} className="step__one photo" />
 
-      <p className="under-photo">
-        <strong>Шаг 1:</strong> анализируется линия жизни — ближайшая ключевая точка найдена на середине линии.
+        <p className="under-photo">
+          <strong>Шаг 1:</strong> анализируется линия жизни — ближайшая ключевая точка найдена на середине линии.
+        </p>
+      </div>
+
+      <div className="step__two">
+        <Image src="/flower2.png" alt="Шаг 1" width={280} height={300} className="step__two flower" />
+        <Image src="/photosymbol.png" alt="Шаг 2" width={150} height={180} className="step_two photo" />
+
+        <div className="under-photo">
+          <strong>Шаг 2:</strong> определяется соответствующий символ из майянского календаря, например, Кан — символ возрождения и роста.
+        </div>
+      </div>
+
+      <div className="step__three">
+        <Image src="/photodawn.png" alt="Шаг 3" width={150} height={180} className="step_three photo" />
+        <div className="under-photo">
+          <strong>Шаг 3:</strong> на основе этого делается предсказание: Ожидается важное событие, связанное с изменением жизненной энергии и восстановлением сил в ближайшие 20 дней.
+        </div>
+      </div>
+
+    </div>
+  </section>
+);
+
+const FreeTrialSection = () => (
+  <section className="free-trial-section">
+    <div className="content">
+      
+      <h2>Попробуйте бесплатную версию!</h2>
+      <p>
+        Данный алгоритм объединяет два древних метода предсказаний: хиромантию и майянские календари. Применение линий на руке в сочетании с символикой и цикличностью времени у майя позволяет формировать прогнозы ближайшего будущего с глубоким духовным и символическим контекстом. Неделю и три попытки мы предоставляем бесплатно.
       </p>
-    </div>
 
-    <div className="step__two">
-      <Image src="/flower2.png" alt="Шаг 1" width={300} height={300} className="step__two flower"/>
-      <Image src="/photosymbol.png" alt="Шаг 2" width={120} height={130} className="step_two photo"/>
-
-      <div className="under-photo">
-        <strong>Шаг 2:</strong> определяется соответствующий символ из майянского календаря, например, Кан — символ возрождения и роста.
-      </div>
-    </div>
-
-    <div className="step__three">
-      <Image src="/photodawn.png" alt="Шаг 3" width={120} height={130} className="step_three photo"/>
-      <div className="under-photo">
-        <strong>Шаг 3</strong> на основе этого делается предсказание: Ожидается важное событие, связанное с изменением жизненной энергии и восстановлением сил в ближайшие 20 дней.
-      </div>
+      <h2>Хотите больше?</h2>
+      <p>
+        Ознакомьтесь с платными планами на предсказания, еженедельные рассылки советов на основе наших алгоритмов и прочих преимуществ для наших пользователей.
+      </p>
     </div>
   </section>
 );
 
 const Pricing = () => (
   <section className="pricing">
-    <h3>Тарифные планы</h3>
+    <h2>Тарифные планы</h2>
     <div className="tariff">
       <h4>Нагуаль</h4>
       <p>Три предсказания в неделю</p>
@@ -208,6 +229,7 @@ export default function Home() {
       <PredictionTheory />
       <PredictionFormula />
       <PracticalApplication />
+      <FreeTrialSection />
       <Pricing />
       <Footer />
     </div>

@@ -50,9 +50,10 @@ header {
 
 section {
     position: relative;
+    display: flex;
 
-    left: 10%;
-    width: 40%;
+    width: 50%;
+    padding-left: 10%;
     padding-top: 5vh;
     min-width: 400px;
     min-height: 90vh;
@@ -111,7 +112,8 @@ section {
     &.intro,
     &.how-it-works,
     &.prediction-formula,
-    &.practical-application {
+    &.practical-application,
+    &.free-trial-section {
         position: relative;
         display: flex;
         align-items: flex-end;
@@ -156,23 +158,33 @@ section {
     }
 
     &.practical-application {
+        .showcase {
+            margin-left: 10%;
+            width: 500px;
+        }
+
         .under-photo {
             position: relative;
             color: #dadada;
-            max-width: 150px;
-            padding: 10px 0;
+            max-width: 200px;
+            padding: 20px 0;
+            text-align: center;
         }
 
         .step {
             display: flex;
             position: relative;
+            max-width: 300px;
 
             &__one {
                 position: relative;
                 margin-top: -50px;
                 .flower {
                     position: absolute;
-                    margin-left: 80px;
+                    width: calc(30% + 10rem);
+                    height: calc(10vh + 10rem);
+                    margin-left: 125px;
+                    margin-top: 180px;
                 }
                 .photo {
                     position: relative;
@@ -183,16 +195,16 @@ section {
             &__two {
                 position: relative;
                 display: flex;
-                padding-right: calc(2rem + 5vw);
-                margin-top: -20px;
+                padding-right: 5rem;
                 width: 100%;
                 flex-direction: column;
                 align-items: flex-end;
 
                 .flower {
                     position: absolute;
-                    margin-top: 10px;
-                    margin-right: calc(0.5rem + 0.5vw);
+                    width: calc(45% + 10rem);
+                    margin-top: 60px;
+                    margin-right: 60px;
                 }
 
                 .photo {
@@ -200,25 +212,23 @@ section {
                 }
             }
 
-            &__three {
-                margin-top: -30px;
+            &__three {       
                 margin-left: calc(10px + 1vw);
-
-                .under-photo {
-                    margin-left: calc(5px + 1vw);
-                }
             }
+        }
+    }
+
+    &.free-trial-section {
+        .content {
+            margin-top: 40%;
         }
     }
 
     &.pricing {
         display: flex;
         justify-content: space-between;
-        background-color: #eceff1;
 
         .tariff {
-            background-color: #fff;
-            border: 1px solid #ccc;
             padding: 20px;
             width: 30%;
 

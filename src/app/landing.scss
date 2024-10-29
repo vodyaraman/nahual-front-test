@@ -18,6 +18,47 @@
     cursor: pointer;
 }
 
+.section-nav {
+    z-index: 10;
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-50%);
+    gap: 10px;
+
+    .indicator {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #bbc534;
+        transition: top 0.3s ease, background-color 0.3s ease;
+      }
+  
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 1s;
+  
+      &.active {
+        background-color: #bbc534;
+        scale: 1.2;
+      }
+  
+      &:hover {
+        background-color: #15b300; // Цвет при наведении
+      }
+    }
+  }
+  
+
 header {
     z-index: 10;
     display: flex;
@@ -48,6 +89,41 @@ header {
     }
 }
 
+.auth {
+    position: absolute;
+    right: 10px;
+
+    &.text {
+        z-index: 10;
+        position: relative;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        right: 0px;
+    }
+
+    button {
+        position: relative;
+        padding: 5px 10px;
+        background-color: #000000b7;
+        border: 1px solid #beb86e;
+        border-radius: 20px;
+        color: #dadada;
+        margin: 10px;
+        scale: 0.99;
+        transition: 0.3s ease;
+        user-select: none;
+        cursor: pointer;
+
+        &:hover {
+            scale: 1.05;
+        }
+
+        &:active {
+            scale: 0.9;
+        }
+    }
+}
+
 section {
     position: relative;
     display: flex;
@@ -59,6 +135,15 @@ section {
     min-height: 90vh;
     max-width: 1200px;
 
+    opacity: 0.2;
+    transform: scale(0.95);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1);
+        }
+
     &.right-side {
         position: fixed;
 
@@ -66,13 +151,15 @@ section {
         right: 0;
         left: unset;
 
+        animation: fadeInUp 1s ease;
+
         .wheel {
             position: absolute;
             width: calc(400px + 15rem);
             height: calc(400px + 15rem);
             bottom: -200px;
             right: -100px;
-            animation: rotation 120s linear infinite;
+            transition: 1s ease;
         }
 
         .playwheel {
@@ -81,7 +168,7 @@ section {
             height: 10rem;
             bottom: calc(300px + 0.85rem);
             right: 150px;
-            animation: rotation 60s linear infinite reverse;
+            transition: 1s ease;
         }
 
         .playbutton {
@@ -91,7 +178,7 @@ section {
             bottom: calc(300px + 0.85rem + 2.5rem);
             right: calc(150px + 2.5rem);
 
-            transition: mask-image 1s ease-in-out;
+            transition: mask-image 3s ease-in-out;
             mask-image: linear-gradient(to top, transparent 0%, #16f7254b);
 
             cursor: grab;
@@ -113,7 +200,8 @@ section {
     &.how-it-works,
     &.prediction-formula,
     &.practical-application,
-    &.free-trial-section {
+    &.free-trial-section,
+    &.pricing {
         position: relative;
         display: flex;
         align-items: flex-end;
@@ -122,7 +210,6 @@ section {
 
         h2,
         h3 {
-            flex: 1;
             color: #B0A204;
             margin-bottom: 15px;
         }
@@ -138,16 +225,34 @@ section {
             color: #dadada;
             font-weight: 400;
             margin-bottom: 20px;
+            list-style-type: none;
         }
 
         .arrow-down {
             width: calc(30px + 1rem);
             height: calc(30px + 1rem);
             background-color: transparent;
+            transition: 0.3s ease;
 
             &:hover {
                 scale: 1.05;
             }
+
+            &.scrolled {
+                z-index: 10;
+                position: fixed;
+                top: 50vh;
+                left: 10px;
+            }
+        }
+
+        code {
+            background-color: #292929ab;
+            color: #beb86e;
+            padding: 5px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 3px;
         }
     }
 
@@ -179,6 +284,7 @@ section {
             &__one {
                 position: relative;
                 margin-top: -50px;
+
                 .flower {
                     position: absolute;
                     width: calc(30% + 10rem);
@@ -186,6 +292,7 @@ section {
                     margin-left: 125px;
                     margin-top: 180px;
                 }
+
                 .photo {
                     position: relative;
                     margin-top: 95px;
@@ -212,7 +319,7 @@ section {
                 }
             }
 
-            &__three {       
+            &__three {
                 margin-left: calc(10px + 1vw);
             }
         }
@@ -220,35 +327,103 @@ section {
 
     &.free-trial-section {
         .content {
-            margin-top: 40%;
+            margin-top: 10%;
+        }
+        #next-button {
+            float: right;
         }
     }
 
     &.pricing {
         display: flex;
-        justify-content: space-between;
+        align-items: flex-start;
+        padding-left: 50px;
 
-        .tariff {
-            padding: 20px;
-            width: 30%;
+        h2 {
+            margin-left: calc(30% + 4rem);
+        }
 
-            h4 {
-                margin: 0 0 10px;
-                color: #333;
+        .content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 20px;
+            margin-top: 2rem;
+            width: 100%;
+            height: 20rem;
+            transition: 1s ease;
+
+            .tarif {
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+                border: 1px solid #f5c905;
+                border-radius: 25px;
+                background: linear-gradient(to top, #000000 20%, #0000001c 100%);
+                transition: 1s ease;
+
+                li {
+                    margin: 10px 0;
+                    text-align: justify;
+                }
             }
 
-            p {
-                color: #666;
-                margin: 10px 0;
+            &:hover {
+                height: 22rem;
+                margin-top: 1rem;
+                padding-bottom: 3rem;
             }
+
+            button {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.3rem;
+                color: #dadada;
+                background-color: #000000;
+                border: 1px solid #000000;
+                top: 23rem;
+                border-radius: 0px 0px 25px 25px;
+                height: 2rem;
+                width: calc(30% + 2rem);
+                padding: 1.5rem;
+                padding-top: 40px;
+                transition: 1s ease;
+
+                &:hover {
+                    color: #07bb52;
+                }
+
+                &:active {
+                    font-size: 2rem;
+                }
+            }
+
         }
     }
 }
 
 footer {
-    text-align: center;
-    background-color: #333;
-    padding: 40px;
+    position: absolute;
+    display: flex;
+    top: 500px;
+    left: 0;
+    height: 100vh;
+    background-color: #000000;
 
     .action-button {
         margin: 0 10px;

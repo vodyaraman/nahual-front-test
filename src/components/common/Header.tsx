@@ -88,7 +88,7 @@ export default function Header() {
                 {mode === "default" && (
                     <>
                         <Link href="/auth/?mode=register" passHref>
-                            <Button variant="contained" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                            <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                                 Registration
                             </Button>
                         </Link>
@@ -101,7 +101,7 @@ export default function Header() {
                 )}
                 {mode === "login" && (
                     <Link href="/auth/?mode=register" passHref>
-                        <Button variant="contained" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                        <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                             Registration
                         </Button>
                     </Link>

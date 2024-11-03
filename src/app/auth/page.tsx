@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation'; // Импортируем useRouter
 import { Box, Button, Typography } from '@mui/material';
 import Header from '@/components/common/Header';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,25 +14,38 @@ import RegisterForm from './Registration';
 import StyleLayout from '@/components/layouts/StyleLayout';
 
 export default function Auth() {
-    const [isLogin, setIsLogin] = useState(true);
+    const [authMode, setAuthMode] = useState("none");
+    const [isLoading, setIsLoading] = useState(true);
     const searchParams = useSearchParams();
+    const router = useRouter(); // Инициализируем useRouter
     const images = [
-        'https://kapital-rus.ru/img/articles/289926.jpg',
-        'https://s9.travelask.ru/uploads/post/000/031/320/main_image/full-c498e681ad79e90f6b3ec2cb28f3328e.jpg',
-        'https://naked-science.ru/wp-content/uploads/2016/08/field_image_0_554351_bf4d1b86_orig.jpg'
+        '/auth1.png',
+        '/auth2.png',
+        '/auth3.png'
     ];
 
     useEffect(() => {
         const mode = searchParams.get('mode');
         if (mode === 'register') {
-            setIsLogin(false);
+            setAuthMode("register");
         } else if (mode === 'login') {
-            setIsLogin(true);
+            setAuthMode("login");
+        } else {
+            setAuthMode("none");
         }
+
+        setIsLoading(false);
     }, [searchParams]);
 
+    const handleAuthModeChange = (mode:string) => {
+        router.push(`?mode=${mode}`);
+        setAuthMode(mode);
+    };
+
     const toggleAuthMode = () => {
-        setIsLogin((prevIsLogin) => !prevIsLogin);
+        const newMode = authMode === "login" ? "register" : "login";
+        router.push(`?mode=${newMode}`);
+        setAuthMode(newMode);
     };
 
     return (
@@ -80,15 +93,44 @@ export default function Auth() {
                             }}
                         >
                             <Typography variant="h5" component="h1">
-                                {isLogin ? 'Login' : 'Register'}
+                                {authMode === "login" ? 'Login' : authMode === "register" ? 'Register' : 'Вас нет в нашей системе'}
                             </Typography>
-                            {isLogin ? <LoginForm /> : <RegisterForm />}
-                            <Button
-                                onClick={toggleAuthMode}
-                                sx={{ mt: 2, color: 'text.primary', fontSize: '0.6rem' }}
-                            >
-                                {isLogin ? "Don't have an account? Register" : "Already have an account? Login"}
-                            </Button>
+
+                            {authMode === "login" && <LoginForm />}
+                            {authMode === "register" && <RegisterForm />}
+
+                            {authMode === "none" && (
+                                <>
+                                    <Typography sx={{ mt: 2, fontSize: '0.8rem' }}>
+                                        Пожалуйста, выберите один из вариантов ниже:
+                                    </Typography>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handleAuthModeChange("login")} // Добавляем параметр в URL
+                                        disabled={isLoading}
+                                        sx={{ mt: 2, color: 'text.primary', fontSize: '0.75rem' }}
+                                    >
+                                        Войти
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handleAuthModeChange("register")} // Добавляем параметр в URL
+                                        disabled={isLoading}
+                                        sx={{ mt: 2, color: 'text.primary', fontSize: '0.75rem' }}
+                                    >
+                                        Зарегистрироваться
+                                    </Button>
+                                </>
+                            )}
+
+                            {(authMode === "login" || authMode === "register") && (
+                                <Button
+                                    onClick={toggleAuthMode}
+                                    sx={{ mt: 2, color: 'text.primary', fontSize: '0.6rem' }}
+                                >
+                                    {authMode === "login" ? "Don't have an account? Register" : "Already have an account? Login"}
+                                </Button>
+                            )}
                         </Box>
                     </Box>
                 </Box>

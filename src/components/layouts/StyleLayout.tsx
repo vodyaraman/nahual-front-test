@@ -26,12 +26,21 @@ export default function StyleLayout({ children }: LayoutProps) {
                 palette: {
                     mode,
                     background: {
-                        default: "#000000", // Основной черный фон
-                        paper: "#FFD700"    // Вторичный желтый фон
+                        default: "#000000",
+                        paper: "#FFD700",
                     },
                     text: {
-                        primary: "#ffffff", // Белый текст
+                        primary: "#ffffff",
+                        secondary: "#00000"
                     },
+                    secondary: {
+                        main: "#c29906",
+                        contrastText: "#ffffff", 
+                    },
+                    primary: {
+                        main: "#5c5439",
+                        contrastText: "#ffffff",
+                    }
                 },
             }),
         [mode]

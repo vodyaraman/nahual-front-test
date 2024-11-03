@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 export default function RegisterForm() {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -9,6 +9,15 @@ export default function RegisterForm() {
   const onSubmit = () => {
     console.log();
   };
+
+  // Функция для извлечения первого сообщения об ошибке
+  const getFirstErrorMessage = () => {
+    if (errors.username) return String(errors.username.message);
+    if (errors.email) return String(errors.email.message);
+    if (errors.password) return String(errors.password.message);
+    if (errors.confirmPassword) return String(errors.confirmPassword.message);
+    return null;
+  };  
 
   return (
     <Box
@@ -25,6 +34,13 @@ export default function RegisterForm() {
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Отображение первого сообщения об ошибке */}
+        {getFirstErrorMessage() && (
+          <Typography color="error" sx={{ fontSize: '0.75rem', mb: 2, textAlign: "center"}}>
+            {getFirstErrorMessage()}
+          </Typography>
+        )}
+
         <TextField
           fullWidth
           margin="normal"
@@ -37,8 +53,6 @@ export default function RegisterForm() {
             maxLength: { value: 20, message: "Username cannot exceed 20 characters" }
           })}
           error={!!errors.username}
-          helperText={errors.username ? String(errors.username.message) : ''}
-          FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
         />
         <TextField
           fullWidth
@@ -54,8 +68,6 @@ export default function RegisterForm() {
             }
           })}
           error={!!errors.email}
-          helperText={errors.email ? String(errors.email.message) : ''}
-          FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
         />
         <TextField
           fullWidth
@@ -70,8 +82,6 @@ export default function RegisterForm() {
             maxLength: { value: 32, message: "Password cannot exceed 32 characters" }
           })}
           error={!!errors.password}
-          helperText={errors.password ? String(errors.password.message) : ''}
-          FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
         />
         <TextField
           fullWidth
@@ -85,8 +95,6 @@ export default function RegisterForm() {
             validate: value => value === password || "Passwords do not match"
           })}
           error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword ? String(errors.confirmPassword.message) : ''}
-          FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
         />
         <Button
           fullWidth

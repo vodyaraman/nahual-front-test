@@ -50,9 +50,9 @@ export default function Auth() {
     };
 
     return (
-        <StateLayout>
-            <StyleLayout>
-                <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
+            <StateLayout>
+                <StyleLayout>
                     <Header />
                     <Box
                         sx={{
@@ -170,8 +170,9 @@ export default function Auth() {
                             </Swiper>
                         </Box>
                     </Box>
-                </Suspense>
-            </StyleLayout>
-        </StateLayout>
+
+                </StyleLayout>
+            </StateLayout>
+        </Suspense>
     );
 }

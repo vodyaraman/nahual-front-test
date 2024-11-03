@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
+import Header from "@/components/common/Header";
 import "./landing.scss";
 import Image from "next/image";
 
@@ -103,28 +104,6 @@ const Wheel = () => (
     />
     <div className="luminosity" />
   </section>
-);
-
-const Header = () => (
-  <header className="header">
-    <Image
-      src="./nahual-logo.svg"
-      alt=""
-      width={71}
-      height={71}
-      className="nahual-logo"
-      draggable="false"
-    />
-    <h1>Nuahual Visions</h1>
-    <div className="auth">
-      <button className="register">
-        Registration
-      </button>
-      <button className="login">
-        Login
-      </button>
-    </div>
-  </header>
 );
 
 const Intro = () => {
@@ -423,7 +402,6 @@ export default function Home() {
       <PracticalApplication />
       <FreeTrialSection />
       <Pricing />
-      <section />
       <Footer />
     </div>
   );

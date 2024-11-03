@@ -15,7 +15,6 @@
 html,
 body {
   width: 100vw;
-  overflow: hidden;
 }
 
 body {
@@ -25,14 +24,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-width: 800px;
+  overflow: hidden;
 }
 
 .main {
   z-index: 10;
-  position: relative;
-  overflow-y: auto;
   max-height: 100vh;
-  height: auto;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 * {

@@ -1,13 +1,37 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useRegisterMutation } from '@/state/auth/authApi';
+import { setTokens, setUser } from '@/state/auth/authSlice';
+
+interface RegisterFormInputs {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function RegisterForm() {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const dispatch = useDispatch();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<RegisterFormInputs>();
+  const [registerUser, { isLoading, error }] = useRegisterMutation();
   const password = watch('password');
 
-  const onSubmit = () => {
-    console.log();
+  const onSubmit = async (data: RegisterFormInputs) => {
+    try {
+      const { username, email, password } = data;
+      const response = await registerUser({ username, email, password }).unwrap();
+      dispatch(setTokens(response));
+      dispatch(setUser({
+        id: response.idToken || '',
+        username,
+        email,
+      }));
+      console.log('Registration successful');
+    } catch (err) {
+      console.error('Registration failed', err);
+    }
   };
 
   // Функция для извлечения первого сообщения об ошибке
@@ -96,13 +120,19 @@ export default function RegisterForm() {
           })}
           error={!!errors.confirmPassword}
         />
+        {error && (
+          <Typography color="error" sx={{ fontSize: '0.75rem', mt: 1, textAlign: 'center' }}>
+            Registration failed. Please try again.
+          </Typography>
+        )}
         <Button
           fullWidth
           type="submit"
           variant="contained"
+          disabled={isLoading}
           sx={{ mt: 2, fontSize: '0.75rem' }}
         >
-          Register
+          {isLoading ? 'Registering...' : 'Register'}
         </Button>
       </form>
     </Box>

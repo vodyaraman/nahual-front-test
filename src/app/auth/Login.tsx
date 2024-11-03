@@ -1,12 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, TextField } from '@mui/material';
+import { useLoginMutation } from '@/state/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { setTokens, setUser } from '@/state/auth/authSlice';
+
+interface LoginFormInputs {
+  email: string;
+  password: string;
+}
 
 export default function LoginForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+  const [login, { isLoading, error }] = useLoginMutation();
 
-  const onSubmit = () => {
-    console.log();
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const response = await login({ username: data.email, password: data.password }).unwrap();
+      dispatch(setTokens(response));
+      dispatch(setUser({
+        id: response.idToken || '',
+        username: data.email,
+        email: data.email,
+      }));
+      console.log('Login successful');
+    } catch (err) {
+      console.error('Login failed', err);
+    }
   };
 
   return (
@@ -53,15 +74,22 @@ export default function LoginForm() {
           helperText={errors.password ? String(errors.password.message) : ''}
           FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
         />
+        {error && (
+          <Box color="error.main" sx={{ fontSize: '0.75rem', mt: 1, textAlign: 'center' }}>
+            Login failed. Please check your credentials.
+          </Box>
+        )}
         <Button
           fullWidth
           type="submit"
           variant="contained"
+          disabled={isLoading}
           sx={{ mt: 2, fontSize: '0.75rem' }}
         >
-          Continue
+          {isLoading ? 'Logging in...' : 'Continue'}
         </Button>
       </form>
     </Box>
   );
 }
+

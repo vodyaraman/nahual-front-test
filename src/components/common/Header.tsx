@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+'use client'
+import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from 'next/link';
@@ -27,93 +28,95 @@ export default function Header() {
     };
 
     return (
-        <Box
-            component="header"
-            sx={{
-                zIndex: 10,
-                display: "flex",
-                position: "sticky",
-                top: 0,
-                flexDirection: "row",
-                textAlign: "center",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                backgroundColor: "#000",
-                width: "100%",
-                height: "60px",
-            }}
-        >
+        <Suspense fallback={<div>Loading...</div>}>
             <Box
-                onClick={resetAuthMode}
+                component="header"
                 sx={{
-                    cursor: "pointer",
+                    zIndex: 10,
                     display: "flex",
+                    position: "sticky",
+                    top: 0,
+                    flexDirection: "row",
+                    textAlign: "center",
+                    justifyContent: "flex-start",
                     alignItems: "center",
+                    backgroundColor: "#000",
+                    width: "100%",
+                    height: "60px",
                 }}
             >
-                <Image
-                    src="./nahual-logo.svg"
-                    alt=""
-                    width={71}
-                    height={71}
-                    style={{
-                        position: "relative",
-                        top: "15px",
-                        left: "5px",
+                <Box
+                    onClick={resetAuthMode}
+                    sx={{
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
                     }}
-                    draggable="false"
-                />
-            </Box>
-            <Typography
-                variant="h1"
-                sx={{
-                    position: "relative",
-                    fontSize: "1rem",
-                    color: "#fff",
-                    paddingLeft: "15px",
-                    margin: 0,
-                }}
-            >
-                Nuahual Visions
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    gap: "10px",
-                    marginLeft: "auto",
-                    paddingRight: "15px",
-                    fontSize: "0.7rem",
-                }}
-            >
-                {mode === "default" && (
-                    <>
+                >
+                    <Image
+                        src="./nahual-logo.svg"
+                        alt=""
+                        width={71}
+                        height={71}
+                        style={{
+                            position: "relative",
+                            top: "15px",
+                            left: "5px",
+                        }}
+                        draggable="false"
+                    />
+                </Box>
+                <Typography
+                    variant="h1"
+                    sx={{
+                        position: "relative",
+                        fontSize: "1rem",
+                        color: "#fff",
+                        paddingLeft: "15px",
+                        margin: 0,
+                    }}
+                >
+                    Nuahual Visions
+                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: "10px",
+                        marginLeft: "auto",
+                        paddingRight: "15px",
+                        fontSize: "0.7rem",
+                    }}
+                >
+                    {mode === "default" && (
+                        <>
+                            <Link href="/auth/?mode=register" passHref>
+                                <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                    Registration
+                                </Button>
+                            </Link>
+                            <Link href="/auth/?mode=login" passHref>
+                                <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                    Login
+                                </Button>
+                            </Link>
+                        </>
+                    )}
+                    {mode === "login" && (
                         <Link href="/auth/?mode=register" passHref>
                             <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                                 Registration
                             </Button>
                         </Link>
+                    )}
+                    {mode === "register" && (
                         <Link href="/auth/?mode=login" passHref>
                             <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                                 Login
                             </Button>
                         </Link>
-                    </>
-                )}
-                {mode === "login" && (
-                    <Link href="/auth/?mode=register" passHref>
-                        <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                            Registration
-                        </Button>
-                    </Link>
-                )}
-                {mode === "register" && (
-                    <Link href="/auth/?mode=login" passHref>
-                        <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                            Login
-                        </Button>
-                    </Link>
-                )}
+                    )}
+                </Box>
             </Box>
-        </Box>
+        </Suspense>
     );
 }

@@ -13,6 +13,7 @@ import LoginForm from './Login';
 import RegisterForm from './Registration';
 import StyleLayout from '@/components/layouts/StyleLayout';
 import StateLayout from '@/components/layouts/StateLayout';
+import OAuthButtons from './OAuth';
 
 export default function Auth() {
     const [authMode, setAuthMode] = useState("none");
@@ -82,7 +83,6 @@ export default function Auth() {
                                     width: '100%',
                                     borderRadius: 2,
                                     boxShadow: 3,
-                                    mt: 6,
                                     backgroundColor: 'background.default',
                                     color: 'text.primary',
                                 }}
@@ -109,7 +109,7 @@ export default function Auth() {
                                             </Typography>
                                             <Button
                                                 variant="contained"
-                                                onClick={() => handleAuthModeChange("login")} // Добавляем параметр в URL
+                                                onClick={() => handleAuthModeChange("login")}
                                                 disabled={isLoading}
                                                 sx={{ mt: 2, color: 'text.primary', fontSize: '0.75rem' }}
                                             >
@@ -117,7 +117,7 @@ export default function Auth() {
                                             </Button>
                                             <Button
                                                 variant="contained"
-                                                onClick={() => handleAuthModeChange("register")} // Добавляем параметр в URL
+                                                onClick={() => handleAuthModeChange("register")}
                                                 disabled={isLoading}
                                                 sx={{ mt: 2, color: 'text.primary', fontSize: '0.75rem' }}
                                             >
@@ -134,6 +134,7 @@ export default function Auth() {
                                             {authMode === "login" ? "Don't have an account? Register" : "Already have an account? Login"}
                                         </Button>
                                     )}
+                                    <OAuthButtons/>
                                 </Box>
                             </Box>
                         </Box>

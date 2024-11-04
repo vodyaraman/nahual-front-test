@@ -51,7 +51,7 @@ export default function LoginForm() {
           label="Email"
           InputProps={{ sx: { fontSize: '0.75rem' } }}
           InputLabelProps={{ sx: { fontSize: '0.75rem' } }}
-          {...register("email", { 
+          {...register("email", {
             required: "Email is required",
             pattern: {
               value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,

@@ -61,3 +61,9 @@ export interface ServerUser {
     redirectUri: string; // URI для перенаправления после успешной авторизации
   }
   
+  export interface OAuthState {
+    platform: 'vk' | 'yandex' | 'gosuslugi' | 'telegram' | null;
+    authTokens: KeycloakAuthResponse | null;
+    isLoading: boolean;
+    isAuthenticated: boolean;
+}  

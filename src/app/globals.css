@@ -55,6 +55,9 @@ select:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s; /* Убирает анимацию автозаполнения */
 }
 
+svg {
+  z-index: 10;
+}
 
 a {
   color: inherit;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/common/Header";
 import "./landing.scss";
 import Image from "next/image";
+import StyleLayout from "@/components/layouts/StyleLayout";
 
 const Background = () => (
   <Image
@@ -263,14 +264,14 @@ const FreeTrialSection = () => {
     }
   };
   return (
-  <section className="free-trial-section" id="free-trial-section">
-    <div className="content">
+    <section className="free-trial-section" id="free-trial-section">
+      <div className="content">
 
-      <h2>Попробуйте бесплатную версию!</h2>
-      <p>
-        Данный алгоритм объединяет два древних метода предсказаний: хиромантию и майянские календари. Применение линий на руке в сочетании с символикой и цикличностью времени у майя позволяет формировать прогнозы ближайшего будущего с глубоким духовным и символическим контекстом. Неделю и три попытки мы предоставляем бесплатно.
-      </p>
-      <div className="auth text">
+        <h2>Попробуйте бесплатную версию!</h2>
+        <p>
+          Данный алгоритм объединяет два древних метода предсказаний: хиромантию и майянские календари. Применение линий на руке в сочетании с символикой и цикличностью времени у майя позволяет формировать прогнозы ближайшего будущего с глубоким духовным и символическим контекстом. Неделю и три попытки мы предоставляем бесплатно.
+        </p>
+        <div className="auth text">
           <button className="register">
             Registration
           </button>
@@ -279,16 +280,17 @@ const FreeTrialSection = () => {
           </button>
         </div>
 
-      <h2>Хотите больше?</h2>
-      <p>
-        Ознакомьтесь с платными планами на предсказания, еженедельные рассылки советов на основе наших алгоритмов и прочих преимуществ для наших пользователей.
-      </p>
-      <button className="invisible-button" onClick={() => scrollToSection('pricing')} id="next-button">
-        <Image src="/downarrow.png" width={64} height={64} alt="Далее" className="arrow-down" />
-      </button>
-    </div>
-  </section>
-)};
+        <h2>Хотите больше?</h2>
+        <p>
+          Ознакомьтесь с платными планами на предсказания, еженедельные рассылки советов на основе наших алгоритмов и прочих преимуществ для наших пользователей.
+        </p>
+        <button className="invisible-button" onClick={() => scrollToSection('pricing')} id="next-button">
+          <Image src="/downarrow.png" width={64} height={64} alt="Далее" className="arrow-down" />
+        </button>
+      </div>
+    </section>
+  )
+};
 
 const Pricing = () => (
   <section className="pricing" id="pricing">
@@ -391,18 +393,20 @@ export default function Home() {
 
 
   return (
-    <div className="main">
-      <Background />
-      <Header />
-      <SectionNav />
-      <Wheel />
-      <Intro />
-      <PredictionTheory />
-      <PredictionFormula />
-      <PracticalApplication />
-      <FreeTrialSection />
-      <Pricing />
-      <Footer />
-    </div>
+    <StyleLayout>
+      <div className="main">
+        <Background />
+        <Header />
+        <SectionNav />
+        <Wheel />
+        <Intro />
+        <PredictionTheory />
+        <PredictionFormula />
+        <PracticalApplication />
+        <FreeTrialSection />
+        <Pricing />
+        <Footer />
+      </div>
+    </StyleLayout>
   );
 }

@@ -42,6 +42,15 @@ export default function StyleLayout({ children }: LayoutProps) {
                         contrastText: "#ffffff",
                     }
                 },
+                breakpoints: {
+                    values: {
+                      xs: 0,       // Телефоны и меньше
+                      sm: 550,     // Устройства больше телефонов, но меньше планшетов
+                      md: 768,     // Планшеты и небольшие ноутбуки
+                      lg: 992,     // Ноутбуки и десктопы средней ширины
+                      xl: 1920     // Широкие экраны (десктопы и ТВ экраны)
+                    }
+                  },
             }),
         [mode]
     );

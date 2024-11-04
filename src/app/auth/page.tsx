@@ -58,7 +58,9 @@ export default function Auth() {
                     <Box
                         sx={{
                             display: 'flex',
-                            minHeight: '100vh',
+                            position: 'fixed',
+                            top: '60px',
+                            height: 'calc(100vh - 60px)',
                             width: '100%',
                             backgroundColor: 'background.default',
                             color: 'text.primary',
@@ -68,10 +70,10 @@ export default function Auth() {
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'flex-start',
-                                width: '50%',
+                                alignItems: 'center',
+                                width: {sx: '100%', sm: '100%', md: '50%'},
+                                height: '100%',
                                 boxSizing: 'border-box',
-                                padding: 2,
                             }}
                         >
                             <Box
@@ -79,7 +81,6 @@ export default function Auth() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    maxWidth: 400,
                                     width: '100%',
                                     borderRadius: 2,
                                     boxShadow: 3,
@@ -141,10 +142,11 @@ export default function Auth() {
 
                         <Box
                             sx={{
-                                display: 'flex',
+                                display: { xs: 'none', sm: 'none', md: 'flex' },
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 width: '50%',
+                                class: 'right-side',
                             }}
                         >
                             <Swiper

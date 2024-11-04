@@ -45,7 +45,6 @@ const OAuthButtons: React.FC = () => {
         try {
             const response = await initiateOAuth({ provider }).unwrap();
             console.log('OAuth response:', response);
-            // Дальнейшая обработка, например, сохранение токенов
         } catch (err) {
             console.error('OAuth login error:', err);
         }

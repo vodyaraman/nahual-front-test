@@ -74,6 +74,7 @@ export default function Auth() {
                                 width: {xs: '100%', sm: '100%', md: '50%'},
                                 height: '100%',
                                 boxSizing: 'border-box',
+                                pb: 6,
                             }}
                         >
                             <Box

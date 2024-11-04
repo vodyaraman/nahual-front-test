@@ -71,7 +71,7 @@ export default function Auth() {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: {sx: '100%', sm: '100%', md: '50%'},
+                                width: {xs: '100%', sm: '100%', md: '50%'},
                                 height: '100%',
                                 boxSizing: 'border-box',
                             }}

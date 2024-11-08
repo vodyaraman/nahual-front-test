@@ -220,26 +220,32 @@ const PracticalApplication = () => (
     <div className="showcase">
       <div className="step__one">
         <Image src="/flower1.png" alt="Шаг 1" width={320} height={350} className="step_one flower" />
-        <Image src="/photohand.png" alt="Шаг 1" width={150} height={180} className="step__one photo" />
+        <div className="step__one-content-container step-container">
+          <Image src="/photohand.png" alt="Шаг 1" width={150} height={180} className="step__one photo" />
 
-        <p className="under-photo">
-          <strong>Шаг 1:</strong> анализируется линия жизни — ближайшая ключевая точка найдена на середине линии.
-        </p>
+          <div className="under-photo">
+            <strong>Шаг 1:</strong> анализируется линия жизни — ближайшая ключевая точка найдена на середине линии.
+          </div>
+        </div>
       </div>
 
       <div className="step__two">
         <Image src="/flower2.png" alt="Шаг 1" width={280} height={300} className="step__two flower" />
-        <Image src="/photosymbol.png" alt="Шаг 2" width={150} height={180} className="step_two photo" />
+        <div className="step__two-content-container step-container">
+          <Image src="/photosymbol.png" alt="Шаг 2" width={150} height={180} className="step_two photo" />
 
-        <div className="under-photo">
-          <strong>Шаг 2:</strong> определяется соответствующий символ из майянского календаря, например, Кан — символ возрождения и роста.
+          <div className="under-photo">
+            <strong>Шаг 2:</strong> определяется соответствующий символ из майянского календаря, например, Кан — символ возрождения и роста.
+          </div>
         </div>
       </div>
 
       <div className="step__three">
-        <Image src="/photodawn.png" alt="Шаг 3" width={150} height={180} className="step_three photo" />
-        <div className="under-photo">
-          <strong>Шаг 3:</strong> на основе этого делается предсказание: Ожидается важное событие, связанное с изменением жизненной энергии и восстановлением сил в ближайшие 20 дней.
+        <div className="step__three-content-container step-container">
+          <Image src="/photodawn.png" alt="Шаг 3" width={150} height={180} className="step_three photo" />
+          <div className="under-photo">
+            <strong>Шаг 3:</strong> на основе этого делается предсказание: Ожидается важное событие, связанное с изменением жизненной энергии и восстановлением сил в ближайшие 20 дней.
+          </div>
         </div>
       </div>
 

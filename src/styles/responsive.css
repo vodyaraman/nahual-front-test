@@ -38,14 +38,14 @@
 }
 
 /* Стили для ноутбуков и десктопов средней ширины */
-@media (min-width: 992px) and (max-width: 1919px) {
+@media (min-width: 992px) and (max-width: 1920px) {
     body {
         font-size: 18px;
     }
 }
 
 /* Стили для широких экранов (десктопы и ТВ экраны) */
-@media (min-width: 1920px) {
+@media (min-width: 2000px) {
     body {
         font-size: 24px;
     }

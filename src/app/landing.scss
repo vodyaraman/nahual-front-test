@@ -28,26 +28,26 @@
         border-radius: 5px;
         background-color: #bbc534;
         transition: top 0.3s ease, background-color 0.3s ease;
-      }
-  
-    .nav-dot {
-      width: 12px;
-      height: 12px;
-      background-color: #ccc;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 1s;
-  
-      &.active {
-        background-color: #bbc534;
-        scale: 1.2;
-      }
-  
-      &:hover {
-        background-color: #15b300; // Цвет при наведении
-      }
     }
-  }
+
+    .nav-dot {
+        width: 12px;
+        height: 12px;
+        background-color: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 1s;
+
+        &.active {
+            background-color: #bbc534;
+            scale: 1.2;
+        }
+
+        &:hover {
+            background-color: #15b300; // Цвет при наведении
+        }
+    }
+}
 
 .auth {
     position: absolute;
@@ -101,7 +101,7 @@ section {
     &.visible {
         opacity: 1;
         transform: scale(1);
-        }
+    }
 
     &.right-side {
         position: fixed;
@@ -223,63 +223,92 @@ section {
 
     &.practical-application {
         .showcase {
-            margin-left: 10%;
-            width: 500px;
+            // margin-left: 10%;
+            // width: 500px;
+            // width: 100%;
         }
 
         .under-photo {
             position: relative;
             color: #dadada;
-            max-width: 200px;
-            padding: 20px 0;
+            // max-width: 200px;
+            // padding: 20px 0;
             text-align: center;
         }
 
         .step {
-            display: flex;
+            // display: flex;
             position: relative;
-            max-width: 300px;
+
+            // max-width: 300px;
+            &-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 40%;
+                gap: 25px;
+                position: relative;
+                margin-bottom: 90px;
+            }
 
             &__one {
                 position: relative;
-                margin-top: -50px;
+                // padding-left: 10%;
+                // margin-top: -50px;
 
                 .flower {
                     position: absolute;
-                    width: calc(30% + 10rem);
-                    height: calc(10vh + 10rem);
-                    margin-left: 125px;
-                    margin-top: 180px;
+                    width: 50%;
+                    height: 80%;
+                    margin-left: 29%;
+                    // margin-top: 180px;
+                    margin-top: 50px;
+                }
+
+                &-content-container {
+                    // left: -10%;
                 }
 
                 .photo {
-                    position: relative;
-                    margin-top: 95px;
+                    // position: relative;
+                    // margin-top: 95px;
                 }
             }
 
             &__two {
                 position: relative;
-                display: flex;
-                padding-right: 5rem;
-                width: 100%;
-                flex-direction: column;
-                align-items: flex-end;
+                // display: flex;
+                // padding-right: 5rem;
+                // width: 100%;
+                // flex-direction: column;
+                // align-items: flex-end;
+
+                &-content-container {
+                    left: 40%;
+                }
 
                 .flower {
                     position: absolute;
-                    width: calc(45% + 10rem);
+                    width: 50%;
+                    left: 10%;
                     margin-top: 60px;
-                    margin-right: 60px;
+                    // position: absolute;
+                    // width: calc(45% + 10rem);
+                    // margin-top: 60px;
+                    // margin-right: 60px;
                 }
 
                 .photo {
-                    position: relative;
+                    // position: relative;
                 }
             }
 
             &__three {
-                margin-left: calc(10px + 1vw);
+                // margin-left: calc(10px + 1vw);
+
+                &-content-container {
+                    margin-bottom: 0;
+                }
             }
         }
     }
@@ -288,6 +317,7 @@ section {
         .content {
             margin-top: 10%;
         }
+
         #next-button {
             float: right;
         }

@@ -76,7 +76,7 @@ export default function Header() {
                         margin: 0,
                     }}
                 >
-                    Nuahual Visions
+                    Nahual Visions
                 </Typography>
                 <Box
                     sx={{

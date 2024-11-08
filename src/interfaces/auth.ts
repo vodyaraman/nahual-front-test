@@ -1,7 +1,6 @@
 // Интерфейс для пользователя на сервере (ServerUser), который включает в себя данные, приходящие из системы управления пользователями
 export interface ServerUser {
     id: string;
-    keycloakId: string; // Уникальный идентификатор пользователя в системе авторизации
     username: string;
     email: string;
     createdAt: Date;

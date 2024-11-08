@@ -4,16 +4,8 @@ import Header from "@/components/common/Header";
 import "./landing.scss";
 import Image from "next/image";
 import StyleLayout from "@/components/layouts/StyleLayout";
-
-const Background = () => (
-  <Image
-    src="/background.png"
-    alt=""
-    width={1000}
-    height={1000}
-    className="background"
-  />
-);
+import Background from "@/components/common/Background";
+import Pricing from "@/components/common/Pricing";
 
 const SectionNav = () => {
   const sectionIds = [
@@ -292,35 +284,10 @@ const FreeTrialSection = () => {
   )
 };
 
-const Pricing = () => (
+const Subscriptions = () => (
   <section className="pricing" id="pricing">
     <h2>Тарифные планы</h2>
-
-    <div className="content">
-      <div className="card">
-        <div className="tarif">
-          <h3>Шаман</h3>
-          <li>Три предсказания в неделю</li>
-        </div>
-        <button>299₽</button>
-      </div>
-      <div className="card">
-        <div className="tarif">
-          <h3>Провидец</h3>
-          <li>Пять предсказаний в неделю</li>
-        </div>
-        <button>499₽</button>
-      </div>
-      <div className="card">
-        <div className="tarif">
-          <h3>Нагуаль</h3>
-          <li>
-            Семь предсказаний в неделю
-          </li>
-        </div>
-        <button>899₽</button>
-      </div>
-    </div>
+    <Pricing/>
   </section>
 );
 
@@ -404,7 +371,7 @@ export default function Home() {
         <PredictionFormula />
         <PracticalApplication />
         <FreeTrialSection />
-        <Pricing />
+        <Subscriptions />
         <Footer />
       </div>
     </StyleLayout>

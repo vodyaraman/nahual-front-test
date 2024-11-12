@@ -4,19 +4,19 @@ import { ExportUserFromClient, KeycloakAuthResponse } from '../../interfaces/aut
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://your-auth-server.com', // Укажите ваш URL авторизационного сервера
+    baseUrl: 'http://89.111.170.87:8085',
   }),
   endpoints: (builder) => ({
     register: builder.mutation<KeycloakAuthResponse, ExportUserFromClient>({
       query: (data) => ({
-        url: '/register',
+        url: '/auth/reg',
         method: 'POST',
         body: data,
       }),
     }),
     login: builder.mutation<KeycloakAuthResponse, { username: string; password: string }>({
       query: (data) => ({
-        url: '/login',
+        url: '/auth/login',
         method: 'POST',
         body: data,
       }),

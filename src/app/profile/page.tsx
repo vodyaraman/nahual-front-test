@@ -64,12 +64,25 @@ const ProfilePage = () => {
                         height: '100%',
                         paddingLeft: '5rem',
                     }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="profile tabs" sx={{
-                            color: 'white'
-                        }}>
-                            <Tab label="История активностей" value={0} />
-                            <Tab label="Настройки" value={1} />
-                            <Tab label="Помощь" value={2} />
+                        <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
+                            <Tab label="История активностей" value={0} sx={{
+                                color: 'gray',
+                                '&.Mui-selected': {
+                                    color: 'gold',
+                                },
+                            }} />
+                            <Tab label="Настройки" value={1} sx={{
+                                color: 'gray',
+                                '&.Mui-selected': {
+                                    color: 'gold',
+                                },
+                            }} />
+                            <Tab label="Помощь" value={2} sx={{
+                                color: 'gray',
+                                '&.Mui-selected': {
+                                    color: 'gold',
+                                },
+                            }} />
                         </Tabs>
                         <Box sx={{
                             padding: '1rem',

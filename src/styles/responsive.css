@@ -33,20 +33,20 @@
 /* Стили для планшетов и небольших ноутбуков */
 @media (min-width: 769px) and (max-width: 991px) {
     body {
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
 /* Стили для ноутбуков и десктопов средней ширины */
 @media (min-width: 992px) and (max-width: 1920px) {
     body {
-        font-size: 18px;
+        font-size: 17px;
     }
 }
 
 /* Стили для широких экранов (десктопы и ТВ экраны) */
 @media (min-width: 2000px) {
     body {
-        font-size: 24px;
+        font-size: 22px;
     }
 }

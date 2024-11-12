@@ -5,6 +5,7 @@ import StateLayout from '@/components/layouts/StateLayout';
 import StyleLayout from '@/components/layouts/StyleLayout';
 import Header from '@/components/common/Header';
 import Background from '@/components/common/Background';
+import ProfileSettings from './Settings';
 
 const ProfilePage = () => {
     const [value, setValue] = useState(0);
@@ -36,7 +37,7 @@ const ProfilePage = () => {
         >
             <Background />
             {value === index && (
-                <Box sx={{ p: 3, color: 'currentColor' }}>
+                <Box sx={{ color: 'currentColor', width: "auto", maxHeight: '80vh', overflowY: 'auto'}}>
                     {children}
                 </Box>
             )}
@@ -66,19 +67,19 @@ const ProfilePage = () => {
                     }}>
                         <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
                             <Tab label="История активностей" value={0} sx={{
-                                color: 'gray',
+                                color: 'white',
                                 '&.Mui-selected': {
                                     color: 'gold',
                                 },
                             }} />
                             <Tab label="Настройки" value={1} sx={{
-                                color: 'gray',
+                                color: 'white',
                                 '&.Mui-selected': {
                                     color: 'gold',
                                 },
                             }} />
                             <Tab label="Помощь" value={2} sx={{
-                                color: 'gray',
+                                color: 'white',
                                 '&.Mui-selected': {
                                     color: 'gold',
                                 },
@@ -99,7 +100,7 @@ const ProfilePage = () => {
                         <Typography>Здесь будет отображаться история ваших предсказаний.</Typography>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <Typography>Здесь вы можете изменить свои настройки.</Typography>
+                        <ProfileSettings/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <Typography>Здесь вы найдете ответы на часто задаваемые вопросы.</Typography>

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button, Stack, Typography, CircularProgress } from '@mui/material';
-import { useInitiateOAuthMutation } from '@/state/oAuth/oAuthApi';
 
 interface OAuthButtonProps {
     platform: 'vk' | 'yandex' | 'gosuslugi' | 'telegram';
@@ -39,14 +38,29 @@ const OAuthButton: React.FC<OAuthButtonProps> = ({ platform, onClick }) => (
 );
 
 const OAuthButtons: React.FC = () => {
-    const [initiateOAuth, { isLoading, error }] = useInitiateOAuthMutation();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleOAuthLogin = async (provider: 'vk' | 'yandex' | 'gosuslugi' | 'telegram') => {
+        setIsLoading(true);
+        setError(null);
         try {
-            const response = await initiateOAuth({ provider }).unwrap();
-            console.log('OAuth response:', response);
+            // Эмуляция асинхронного вызова
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (provider === 'gosuslugi') {
+                        reject('Provider not available'); // Искусственная ошибка для теста
+                    } else {
+                        resolve({ provider, token: 'dummy_token' });
+                    }
+                }, 1000); // Эмуляция задержки
+            });
+            console.log('OAuth response:', { provider, token: 'dummy_token' });
         } catch (err) {
+            setError(`Ошибка авторизации: ${err}`);
             console.error('OAuth login error:', err);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -65,10 +79,9 @@ const OAuthButtons: React.FC = () => {
                     <OAuthButton platform="telegram" onClick={() => handleOAuthLogin('telegram')} />
                 </Stack>
             )}
-            {error && <Typography color="error">Ошибка авторизации</Typography>}
+            {error && <Typography color="error">{error}</Typography>}
         </Stack>
     );
 };
 
 export default OAuthButtons;
-

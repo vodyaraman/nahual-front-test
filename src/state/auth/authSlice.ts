@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ImportUserFromServer, KeycloakAuthResponse } from '../../interfaces/auth';
+import { ImportUserFromServer, LoginPayload } from '../../interfaces/auth';
 
 interface AuthState {
   user: ImportUserFromServer | null;
@@ -23,7 +23,7 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
-    setTokens: (state, action: PayloadAction<KeycloakAuthResponse>) => {
+    setTokens: (state, action: PayloadAction<LoginPayload>) => {
       state.token = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
     },

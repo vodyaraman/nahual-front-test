@@ -13,8 +13,8 @@ export interface ServerUser {
   
   // Интерфейс для данных, отправляемых с клиента для регистрации (например, при регистрации нового пользователя)
   export interface ExportUserFromClient {
-    username: string; // Имя пользователя
-    email: string; // Электронная почта
+    username?: string; // Имя пользователя
+    email?: string; // Электронная почта
     password: string; // Пароль
   }
   
@@ -27,42 +27,15 @@ export interface ServerUser {
     subscriptionExpiresAt?: string;
     subscriptionName?: string; // Имя подписки, получаемое из данных подписки
   }
-  
-  // Интерфейс для передачи данных регистрации в систему авторизации
-  export interface KeycloakRegistrationPayload {
-    username: string;
-    email: string;
-    password: string;
-    clientId: string; // Идентификатор клиента в системе авторизации
+
+  export interface LoginPayload {
+    accessToken: string;
+    refreshToken: string;
   }
-  
-  // Интерфейс для передачи данных при авторизации пользователя
-  export interface KeycloakLoginPayload {
-    grantType: 'password'; // Тип авторизации (например, 'password' для логина с паролем)
-    clientId: string; // Идентификатор клиента в системе авторизации
-    username: string; // Имя пользователя
-    password: string; // Пароль пользователя
-  }
-  
-  // Интерфейс для ответа сервера после успешной авторизации или обновления токена
-  export interface KeycloakAuthResponse {
-    accessToken: string; // Токен доступа, который используется для аутентификации в дальнейшем
-    refreshToken: string; // Токен обновления, используется для получения нового accessToken
-    idToken?: string; // ID-токен, содержащий информацию о пользователе
-    expiresIn: number; // Время жизни accessToken в секундах
-    refreshExpiresIn: number; // Время жизни refreshToken в секундах
-  }
-  
+
   // Опционально: интерфейс для работы с OAuth, если в дальнейшем будет необходимость использовать социальные авторизации
   export interface OAuthProvider {
     provider: string; // Название провайдера, например, 'google' или 'facebook'
     clientId: string; // Идентификатор клиента для данного провайдера
     redirectUri: string; // URI для перенаправления после успешной авторизации
   }
-  
-  export interface OAuthState {
-    platform: 'vk' | 'yandex' | 'gosuslugi' | 'telegram' | null;
-    authTokens: KeycloakAuthResponse | null;
-    isLoading: boolean;
-    isAuthenticated: boolean;
-}  

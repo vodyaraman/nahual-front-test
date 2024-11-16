@@ -17,10 +17,10 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await login({ username: data.email, password: data.password }).unwrap();
+      const response = await login({ username: "", email: data.email, password: data.password }).unwrap();
       dispatch(setTokens(response));
       dispatch(setUser({
-        id: response.idToken || '',
+        id: response.accessToken || '',
         username: data.email,
         email: data.email,
       }));

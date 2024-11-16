@@ -24,7 +24,7 @@ export default function RegisterForm() {
       const response = await registerUser({ username, email, password }).unwrap();
       dispatch(setTokens(response));
       dispatch(setUser({
-        id: response.idToken || '',
+        id: response.accessToken,
         username,
         email,
       }));

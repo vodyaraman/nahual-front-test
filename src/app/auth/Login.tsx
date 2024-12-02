@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Box, Button, TextField } from '@mui/material';
 import { useLoginMutation } from '@/state/auth/authApi';
 import { useDispatch } from 'react-redux';
-import { setTokens, setUser } from '@/state/auth/authSlice';
+import { setTokens } from '@/state/auth/authSlice';
 
 interface LoginFormInputs {
   email: string;
@@ -17,14 +17,10 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await login({ username: "", email: data.email, password: data.password }).unwrap();
+      const response = await login({ username: '', email: data.email, password: data.password }).unwrap();
       dispatch(setTokens(response));
-      dispatch(setUser({
-        id: response.accessToken || '',
-        username: data.email,
-        email: data.email,
-      }));
-      console.log('Login successful');
+      
+      window.location.href = '/profile';
     } catch (err) {
       console.error('Login failed', err);
     }

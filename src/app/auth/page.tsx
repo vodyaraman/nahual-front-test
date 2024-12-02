@@ -12,7 +12,6 @@ import 'swiper/css/pagination';
 import LoginForm from './Login';
 import RegisterForm from './Registration';
 import StyleLayout from '@/components/layouts/StyleLayout';
-import StateLayout from '@/components/layouts/StateLayout';
 import OAuthButtons from './OAuth';
 
 export default function Auth() {
@@ -52,7 +51,6 @@ export default function Auth() {
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <StateLayout>
                 <StyleLayout>
                     <Header />
                     <Box
@@ -176,7 +174,6 @@ export default function Auth() {
                     </Box>
 
                 </StyleLayout>
-            </StateLayout>
         </Suspense>
     );
 }

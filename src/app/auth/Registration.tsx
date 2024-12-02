@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRegisterMutation } from '@/state/auth/authApi';
-import { setTokens, setUser } from '@/state/auth/authSlice';
+import { setTokens } from '@/state/auth/authSlice';
 
 interface RegisterFormInputs {
   username: string;
@@ -23,11 +23,6 @@ export default function RegisterForm() {
       const { username, email, password } = data;
       const response = await registerUser({ username, email, password }).unwrap();
       dispatch(setTokens(response));
-      dispatch(setUser({
-        id: response.accessToken,
-        username,
-        email,
-      }));
       console.log('Registration successful');
     } catch (err) {
       console.error('Registration failed', err);

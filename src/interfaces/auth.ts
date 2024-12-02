@@ -20,7 +20,6 @@ export interface ServerUser {
   
   // Интерфейс для данных, приходящих с сервера после успешной авторизации, содержит только безопасные поля, необходимые на клиенте
   export interface ImportUserFromServer {
-    id: string;
     username: string;
     email: string;
     avatarUrl?: string;

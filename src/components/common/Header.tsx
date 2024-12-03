@@ -1,14 +1,20 @@
 'use client'
 import React, { Suspense, useEffect, useState } from "react";
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from "react-redux";
+import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import Link from 'next/link';
 import { Box, Typography, Button } from "@mui/material";
+import { RootState } from "@/state/store";
+import { logout } from "@/state/auth/authSlice";
 
 export default function Header() {
     const [mode, setMode] = useState("default");
     const searchParams = useSearchParams();
-    const router = useRouter();
+    const dispatch = useDispatch();
+
+    // Получаем refreshToken из Redux
+    const refreshToken = useSelector((state: RootState) => state.user.refreshToken);
 
     useEffect(() => {
         const modeParam = searchParams?.get('mode');
@@ -21,10 +27,9 @@ export default function Header() {
         }
     }, [searchParams]);
 
-    // Функция для сброса состояния и перехода на режим "default"
-    const resetAuthMode = () => {
-        setMode("default");
-        router.push('/'); // Переход на главную страницу без параметров
+    // Обработчик для выхода
+    const handleLogout = () => {
+        dispatch(logout());
     };
 
     return (
@@ -46,25 +51,26 @@ export default function Header() {
                 }}
             >
                 <Box
-                    onClick={resetAuthMode}
                     sx={{
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
                     }}
                 >
-                    <Image
-                        src="./nahual-logo.svg"
-                        alt=""
-                        width={71}
-                        height={71}
-                        style={{
-                            position: "relative",
-                            top: "15px",
-                            left: "5px",
-                        }}
-                        draggable="false"
-                    />
+                    <Link href="/" passHref>
+                        <Image
+                            src="./nahual-logo.svg"
+                            alt=""
+                            width={71}
+                            height={71}
+                            style={{
+                                position: "relative",
+                                top: "15px",
+                                left: "5px",
+                            }}
+                            draggable="false"
+                        />
+                    </Link>
                 </Box>
                 <Typography
                     variant="h1"
@@ -87,33 +93,53 @@ export default function Header() {
                         fontSize: "0.7rem",
                     }}
                 >
-                    {mode === "default" && (
+                    {refreshToken ? (
                         <>
-                            <Link href="/auth/?mode=register" passHref>
+                            <Link href="/profile" passHref>
                                 <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                    Registration
+                                    Профиль
                                 </Button>
                             </Link>
-                            <Link href="/auth/?mode=login" passHref>
-                                <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                    Login
-                                </Button>
-                            </Link>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}
+                                onClick={handleLogout}
+                            >
+                                Выйти
+                            </Button>
                         </>
-                    )}
-                    {mode === "login" && (
-                        <Link href="/auth/?mode=register" passHref>
-                            <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                Registration
-                            </Button>
-                        </Link>
-                    )}
-                    {mode === "register" && (
-                        <Link href="/auth/?mode=login" passHref>
-                            <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                Login
-                            </Button>
-                        </Link>
+                    ) : (
+                        <>
+                            {mode === "default" && (
+                                <>
+                                    <Link href="/auth/?mode=register" passHref>
+                                        <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                            Регистрация
+                                        </Button>
+                                    </Link>
+                                    <Link href="/auth/?mode=login" passHref>
+                                        <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                            Вход
+                                        </Button>
+                                    </Link>
+                                </>
+                            )}
+                            {mode === "login" && (
+                                <Link href="/auth/?mode=register" passHref>
+                                    <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                        Регистрация
+                                    </Button>
+                                </Link>
+                            )}
+                            {mode === "register" && (
+                                <Link href="/auth/?mode=login" passHref>
+                                    <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                        Вход
+                                    </Button>
+                                </Link>
+                            )}
+                        </>
                     )}
                 </Box>
             </Box>

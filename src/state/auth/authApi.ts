@@ -25,10 +25,10 @@ export const authApi = createApi({
     }),
 
     refreshToken: builder.mutation<LoginPayload, { refreshToken: string }>({
-      query: (data) => ({
-        url: '/refresh-token',
+      query: ( refreshToken) => ({
+        url: '/auth/token',
         method: 'POST',
-        body: data,
+        body: refreshToken,
       }),
     }),
   }),

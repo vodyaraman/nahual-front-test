@@ -28,11 +28,11 @@ export const profileApi = createApi({
     }),
 
     // Изменение пароля пользователя (PUT)
-    updatePassword: builder.mutation<void, { password: string }>({
-      query: ({ password }) => ({
+    updatePassword: builder.mutation<void, { currentPassword: string, newPassword: string }>({
+      query: ({ currentPassword, newPassword }) => ({
         url: 'api/user/password',
         method: 'PUT',
-        body: { password },
+        body: { currentPassword, newPassword },
       }),
     }),
 

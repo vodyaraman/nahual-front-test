@@ -39,12 +39,12 @@
         transition: background-color 1s;
 
         &.active {
-            background-color: #bbc534;
+            background-color: #9e9c06;
             scale: 1.2;
         }
 
         &:hover {
-            background-color: #15b300; // Цвет при наведении
+            background-color: #d1df0d; 
         }
     }
 }

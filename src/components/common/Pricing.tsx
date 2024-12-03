@@ -97,8 +97,8 @@ const Pricing = () => {
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    backgroundColor: '#f5f5f5',
-                                    borderRadius: '15px',
+                                    backgroundColor: '#000',
+                                    borderRadius: '25px',
                                 }}
                             >
                                 <Image
@@ -109,7 +109,7 @@ const Pricing = () => {
                                     style={{
                                         width: '100%',
                                         height: '100%',
-                                        objectFit: 'fill',
+                                        objectFit: 'cover',
                                     }}
                                 />
                             </Card>

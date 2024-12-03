@@ -77,12 +77,12 @@ const ProfilePage = () => {
         >
           <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
             <Tab
-              label="История активностей"
+              label="История"
               value={0}
-              sx={{ color: 'white', '&.Mui-selected': { color: 'gold' } }}
+              sx={{ color: 'white', fontSize: '0.75rem', '&.Mui-selected': { color: 'gold' } }}
             />
-            <Tab label="Настройки" value={1} sx={{ color: 'white', '&.Mui-selected': { color: 'gold' } }} />
-            <Tab label="Помощь" value={2} sx={{ color: 'white', '&.Mui-selected': { color: 'gold' } }} />
+            <Tab label="Настройки" value={1} sx={{ color: 'white', fontSize: '0.75rem', '&.Mui-selected': { color: 'gold' } }} />
+            <Tab label="Помощь" value={2} sx={{ color: 'white', fontSize: '0.75rem', '&.Mui-selected': { color: 'gold' } }} />
           </Tabs>
           <Box sx={{ padding: '1rem' }}>
             {isLoading ? (

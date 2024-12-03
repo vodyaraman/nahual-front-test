@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import StateLayout from "@/components/layouts/StateLayout";
+import TokenLayout from "@/components/layouts/TokenLayout";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <StateLayout>
-        {children}
+          <TokenLayout>
+            {children}
+          </TokenLayout>
         </StateLayout>
       </body>
     </html>

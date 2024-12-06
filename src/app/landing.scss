@@ -88,8 +88,8 @@ section {
     position: relative;
     display: flex;
 
-    width: 50%;
-    padding-left: 10%;
+    width: 100%;
+    padding: 10%;
     padding-top: 5vh;
     min-width: 400px;
     min-height: 90vh;
@@ -103,31 +103,32 @@ section {
         transform: scale(1);
     }
 
-    &.right-side {
-        position: fixed;
+    &.wheel-container {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        width: 40%;
-        right: 0;
+        width: 100%;
+        right: unset;
         left: unset;
+        padding: 0;
+        opacity: 0.25;
 
         animation: fadeInUp 1s ease;
 
-        .wheel {
-            position: absolute;
+        .outer-wheel {
+            position: relative;
             width: calc(400px + 15rem);
             height: calc(400px + 15rem);
-            bottom: -200px;
-            right: -100px;
-            transition: 1s ease;
+            transition: 0.1s linear;
         }
 
-        .playwheel {
-            position: absolute;
-            width: 10rem;
-            height: 10rem;
-            bottom: calc(300px + 0.85rem);
-            right: 150px;
-            transition: 1s ease;
+        .core-wheel {
+            position: fixed;
+            width: 11rem;
+            height: 11rem;
+            transition: 0.1s linear;
         }
 
         .playbutton {

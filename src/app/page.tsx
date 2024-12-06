@@ -73,20 +73,20 @@ const SectionNav = () => {
 }
 
 const Wheel = () => (
-  <section className="right-side visible">
+  <section className="wheel-container">
     <Image
-      src="/wheel.png"
+      src="/outer-wheel.png"
       alt=""
       width={1000}
       height={1000}
-      className="wheel"
+      className="outer-wheel"
     />
     <Image
-      src="/playwheel.png"
+      src="/core-wheel.png"
       alt=""
       width={1000}
       height={1000}
-      className="playwheel"
+      className="core-wheel"
     />
     <Image
       src="/playbutton.png"
@@ -337,8 +337,8 @@ export default function Home() {
 
   useEffect(() => {
     const main = document.querySelector('.main') as HTMLElement | null;
-    const wheel = document.querySelector('.wheel') as HTMLElement | null;
-    const playWheel = document.querySelector('.playwheel') as HTMLElement | null;
+    const wheel = document.querySelector('.outer-wheel') as HTMLElement | null;
+    const playWheel = document.querySelector('.core-wheel') as HTMLElement | null;
 
     let lastScrollTop = 0;
     let rotation = 0;

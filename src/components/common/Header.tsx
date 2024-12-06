@@ -42,105 +42,118 @@ export default function Header() {
                     position: "sticky",
                     top: 0,
                     flexDirection: "row",
-                    textAlign: "center",
-                    justifyContent: "flex-start",
+                    justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: "#000",
                     width: "100%",
                     height: "60px",
-                }}
-            >
+                }}>
                 <Box
                     sx={{
-                        cursor: "pointer",
+                        zIndex: 10,
                         display: "flex",
-                        alignItems: "center",
-                    }}
-                >
-                    <Link href="/" passHref>
-                        <Image
-                            src="./nahual-logo.svg"
-                            alt=""
-                            width={71}
-                            height={71}
-                            style={{
-                                position: "relative",
-                                top: "15px",
-                                left: "5px",
-                            }}
-                            draggable="false"
-                        />
-                    </Link>
-                </Box>
-                <Typography
-                    variant="h1"
-                    sx={{
                         position: "relative",
-                        fontSize: "1rem",
-                        color: "#fff",
-                        paddingLeft: "15px",
-                        margin: 0,
+                        flexDirection: "row",
+                        textAlign: "center",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        backgroundColor: "#160421df",
+                        border: '3px solid #896F5C',
+                        width: "88%",
+                        height: "60px",
                     }}
                 >
-                    Nahual Visions
-                </Typography>
-                <Box
-                    sx={{
-                        display: "flex",
-                        gap: "10px",
-                        marginLeft: "auto",
-                        paddingRight: "15px",
-                        fontSize: "0.7rem",
-                    }}
-                >
-                    {refreshToken ? (
-                        <>
-                            <Link href="/profile" passHref>
-                                <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                    Профиль
+                    <Box
+                        sx={{
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Link href="/" passHref>
+                            <Image
+                                src="./nahual-logo.svg"
+                                alt=""
+                                width={71}
+                                height={71}
+                                style={{
+                                    position: "relative",
+                                    top: "15px",
+                                    left: "5px",
+                                }}
+                                draggable="false"
+                            />
+                        </Link>
+                    </Box>
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            position: "relative",
+                            fontSize: "1rem",
+                            color: "#fff",
+                            paddingLeft: "15px",
+                            margin: 0,
+                        }}
+                    >
+                        Nahual Visions
+                    </Typography>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: "10px",
+                            marginLeft: "auto",
+                            paddingRight: "15px",
+                            fontSize: "0.7rem",
+                        }}
+                    >
+                        {refreshToken ? (
+                            <>
+                                <Link href="/profile" passHref>
+                                    <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                        Профиль
+                                    </Button>
+                                </Link>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}
+                                    onClick={handleLogout}
+                                >
+                                    Выйти
                                 </Button>
-                            </Link>
-                            <Button
-                                variant="outlined"
-                                color="secondary"
-                                sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}
-                                onClick={handleLogout}
-                            >
-                                Выйти
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            {mode === "default" && (
-                                <>
+                            </>
+                        ) : (
+                            <>
+                                {mode === "default" && (
+                                    <>
+                                        <Link href="/auth/?mode=register" passHref>
+                                            <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                                Регистрация
+                                            </Button>
+                                        </Link>
+                                        <Link href="/auth/?mode=login" passHref>
+                                            <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
+                                                Вход
+                                            </Button>
+                                        </Link>
+                                    </>
+                                )}
+                                {mode === "login" && (
                                     <Link href="/auth/?mode=register" passHref>
                                         <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                                             Регистрация
                                         </Button>
                                     </Link>
+                                )}
+                                {mode === "register" && (
                                     <Link href="/auth/?mode=login" passHref>
                                         <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
                                             Вход
                                         </Button>
                                     </Link>
-                                </>
-                            )}
-                            {mode === "login" && (
-                                <Link href="/auth/?mode=register" passHref>
-                                    <Button variant="contained" color="secondary" sx={{ color: "#000", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                        Регистрация
-                                    </Button>
-                                </Link>
-                            )}
-                            {mode === "register" && (
-                                <Link href="/auth/?mode=login" passHref>
-                                    <Button variant="outlined" color="secondary" sx={{ color: "#fff", fontSize: "inherit", padding: 1, borderRadius: "10px" }}>
-                                        Вход
-                                    </Button>
-                                </Link>
-                            )}
-                        </>
-                    )}
+                                )}
+                            </>
+                        )}
+                    </Box>
                 </Box>
             </Box>
         </Suspense>

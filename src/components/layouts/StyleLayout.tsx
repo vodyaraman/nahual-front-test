@@ -34,7 +34,7 @@ export default function StyleLayout({ children }: LayoutProps) {
                         secondary: "#00000"
                     },
                     secondary: {
-                        main: "#c29906",
+                        main: "#f5f2f2",
                         contrastText: "#ffffff", 
                     },
                     primary: {

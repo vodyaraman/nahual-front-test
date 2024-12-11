@@ -3,14 +3,14 @@
 @import url('../styles/responsive.css');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  color: #000000;
   background: var(--background);
   font-family: "Fira Sans Condensed", sans-serif;;
   -webkit-font-smoothing: antialiased;
@@ -31,7 +31,6 @@ body {
 .main {
   z-index: 10;
   max-height: 100vh;
-  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -44,7 +43,7 @@ body {
 }
 
 ::selection {
-  background-color: #FFD700; /* Цвет фона выделения */
+  background-color: #f5f2f2; /* Цвет фона выделения */
   color: #000000;            /* Цвет текста в выделении */
 }
 

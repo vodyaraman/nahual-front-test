@@ -1,385 +1,334 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import Header from "@/components/common/Header";
-import "./landing.scss";
-import Image from "next/image";
-import StyleLayout from "@/components/layouts/StyleLayout";
 import Background from "@/components/common/Background";
-import Pricing from "@/components/common/Pricing";
+import Wheel from "@/components/common/Wheel";
+import { templates } from "@/components/shared";
+import Image from "next/image";
 
-const SectionNav = () => {
-  const sectionIds = [
-    "intro",
-    "how-it-works",
-    "prediction-formula",
-    "practical-application",
-    "free-trial-section",
-    "pricing",
-  ];
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [indicatorPosition, setIndicatorPosition] = useState(0);
+const Block = ({
+  head = "Заголовок",
+  body = "Текст",
+  link = "/ссылка",
+  imageSrc = "/block-background.png",
+  imageAlt,
+  sx,
+}: {
+  head?: React.ReactNode;
+  body?: React.ReactNode;
+  link?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  sx?: object;
+}) => {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [highlight, setHighlight] = useState({ x: 50, y: 50 });
 
-  const handleScroll = () => {
-    const mainContainer = document.querySelector('.main') as HTMLElement | null;
-    if (!mainContainer) return;
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-    sectionIds.forEach((id, index) => {
-      const section = document.getElementById(id);
-      if (section) {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        const scrollTop = mainContainer.scrollTop;
-        const visibleHeight = mainContainer.clientHeight;
+    const offsetX = (event.clientX - centerX) / rect.width;
+    const offsetY = (event.clientY - centerY) / rect.height;
 
-        if (scrollTop >= sectionTop - visibleHeight / 2 && scrollTop < sectionBottom - visibleHeight / 2) {
-          setActiveSection(id);
-          setIndicatorPosition(index * 22); // Смещение индикатора, регулировать в соответствии с gap
-        }
-      }
+    setRotation({
+      x: offsetY * -2.5,
+      y: offsetX * 2.5,
+    });
+
+    setHighlight({
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
     });
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const mainContainer = document.querySelector('.main') as HTMLElement | null;
-    const targetSection = document.getElementById(sectionId);
-    if (mainContainer && targetSection) {
-      mainContainer.scrollTo({
-        top: targetSection.offsetTop - 35,
-        behavior: 'smooth',
-      });
-    }
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+    setHighlight({ x: 50, y: 50 });
   };
 
-  useEffect(() => {
-    const mainContainer = document.querySelector('.main') as HTMLElement | null;
-    mainContainer?.addEventListener('scroll', handleScroll);
-
-    return () => mainContainer?.removeEventListener('scroll', handleScroll);
-  });
-
   return (
-    <div className="section-nav">
-      <div className="indicator" style={{ top: `${indicatorPosition}px` }} />
-
-      {sectionIds.map((id) => (
-        <div
-          key={id}
-          className={`nav-dot ${activeSection === id ? 'active' : ''}`}
-          onClick={() => scrollToSection(id)}
-        />
-      ))}
-    </div>
+    <Box
+      sx={{
+        perspective: "1000px",
+      }}
+    >
+      <Box
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.25)",
+          borderRadius: "10px",
+          position: "relative",
+          overflow: "hidden",
+          transformOrigin: "center bottom",
+          transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+          transition: "transform 0.1s ease",
+          boxShadow: `0 0 20px rgba(255, 255, 255, 0.1), 
+                      inset 0 0 30px rgba(255, 255, 255, 0.05), 
+                      0 0 60px 40px rgba(255, 255, 255, 0.001)`,
+          background: `radial-gradient(circle at ${highlight.x}% ${highlight.y}%, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.1))`,
+          ...sx,
+        }}
+      >
+        {imageSrc && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: -1,
+            }}
+          >
+            <Image
+              src={imageSrc}
+              alt={imageAlt || "Background"}
+              layout="fill"
+              objectFit="cover"
+            />
+          </Box>
+        )}
+        <Box
+          sx={{
+            padding: "16px",
+            color: "#F7E59D",
+          }}
+        >
+          <Box
+            component="h3"
+            sx={{
+              marginBottom: "8px",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+            }}
+          >
+            {head}
+          </Box>
+          <Box
+            component="p"
+            sx={{
+              marginBottom: "16px",
+              fontSize: "1rem",
+            }}
+          >
+            {body}
+          </Box>
+          <Box
+            component="a"
+            href={link}
+            sx={{
+              textDecoration: "none",
+              color: "#00f",
+              fontWeight: "bold",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Learn More
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
-}
-
-const Wheel = () => (
-  <section className="wheel-container">
-    <Image
-      src="/outer-wheel.png"
-      alt=""
-      width={1000}
-      height={1000}
-      className="outer-wheel"
-    />
-    <Image
-      src="/core-wheel.png"
-      alt=""
-      width={1000}
-      height={1000}
-      className="core-wheel"
-    />
-    <Image
-      src="/playbutton.png"
-      alt=""
-      width={400}
-      height={400}
-      className="playbutton"
-    />
-    <div className="luminosity" />
-  </section>
-);
-
-const Intro = () => {
-  const scrollToSection = (sectionId: string) => {
-    const mainContainer = document.querySelector('.main') as HTMLElement | null;
-    const targetSection = document.getElementById(sectionId);
-
-    if (mainContainer && targetSection) {
-      // Получаем верхнюю позицию секции относительно контейнера main
-      const sectionTop = targetSection.offsetTop;
-
-      // Прокручиваем main с отступом 100 пикселей выше
-      mainContainer.scrollTo({
-        top: sectionTop - 50,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  return (
-    <section className="intro visible" id="intro">
-      <div className="content">
-
-        <h2 className="title">Загляни в будущее и узнай!</h2>
-        <p className="description">
-          Мы предскажем, когда стоит ждать резкие денежные взлёты, маленькие радости или большие потери. С нами Вы будете готовы к неожиданным поворотам судьбы!
-        </p>
-
-        <h2 className="subtitle">Нетерпится начать?</h2>
-        <p className="instruction">
-          Нажмите “старт” на кругу майя в правой части экрана, загрузите фотографию ладони и получите предсказания!
-        </p>
-
-        <h2 className="subtitle">Как это работает?</h2>
-        <p className="description">
-          Давайте разберёмся в лучших практиках предсказаний средней Америки, познакомимся с их ритуалами и всеми известным календарём Майя.
-        </p>
-      </div>
-      <button className="invisible-button" onClick={() => scrollToSection('how-it-works')} id="next-button">
-        <Image src="/downarrow.png" width={64} height={64} alt="Далее" className="arrow-down" />
-      </button>
-    </section>
-  )
 };
 
-const PredictionTheory = () => (
-  <section className="how-it-works" id="how-it-works">
-    <h2>Взаимосвязь хиромантии и календарных систем Майя</h2>
-    <p>
-      Херомантия, как древнее искусство гадания по руке, и календарные системы майя, такие как Цолькин и Хааб, рассматриваются в данном исследовании в качестве взаимодополняющих предсказательных практик. Несмотря на то, что херомантия не была частью культурной традиции майя, существующие аналогии позволяют создать теоретическую базу для сопоставления этих двух практик. Но какая основная связь между космическими предсказаниями майя и херомантией?
-    </p>
-
-    <h2>Формулы для анализа взаимосвязи хиромантии и календарей майя:</h2>
-
-    <h3>Цикличность и временные линии</h3>
-    <p>
-      Цикличность в майянском календаре интерпретируется как показатель жизненной энергии и ритмов, связанных с судьбою человека. Аналогично, календарные циклы майя включают астрономические закономерности, которые можно сопоставить с цикличными линиями жизни на руке, выраженными в временными периодами.
-    </p>
-
-    <p><code>Llife=f(Ccycle), L(life) = f(C(cycle)) Llife=f(Ccycle)</code></p>
-    <ul>
-      <li>
-        <code>Llife1, L(life)</code> — длина линии жизни на руке, отражающая жизненные циклы.
-      </li>
-      <li>
-        <code>Ccycle, C(cycle)</code> — календарные циклы майя, такие как Цолькин и Хааб.
-      </li>
-    </ul>
-  </section>
-);
-
-const PredictionFormula = () => (
-  <section className="prediction-formula" id="prediction-formula">
-    <h3>Духовная и космологическая связь</h3>
-    <p>
-      Космология майя рассматривается как основа для интерпретации судьбы через движение небесных тел. Линии на руке, такие как линия судьбы, сопоставляются с космическими циклами майя. Формула для этой взаимосвязи:
-    </p>
-    <p><code>Lfate=g(θcelestial), L(fate) = g(θ(celestial))Lfate=g(θcelestial)</code></p>
-    <ul>
-      <li>
-        <code>Lfate1, L(fate)</code> — линия судьбы, предсказывающая карьеру и жизненные события.
-      </li>
-      <li>
-        <code>θcelestial, θ(celestial)</code> — угол движения небесных тел, рассчитанный в календаре майя.
-      </li>
-    </ul>
-
-    <h3>Жреческие предсказания</h3>
-    <p>
-      Жреческие гадания майя, основанные на астрономических данных, рассматриваются в контексте аналогии с формой ладони и линиями на руке. Жреческие практики включают элементы анализа судьбы через астрономические события, подобные анализу линий на руке.
-    </p>
-    <p><code>Prediction=h(Aastronomical+Lpalm)</code></p>
-    <p><strong>где:</strong></p>
-    <ul>
-      <li>
-        <code>PredictionP, h(prediction)</code> — предсказание жреца.
-      </li>
-      <li>
-        <code>AstronomicalA, h(astronomical)</code> — астрономические события, зафиксированные в календаре.
-      </li>
-      <li>
-        <code>Lpalm1, L(palm)</code> — линия на руке, интерпретируемая через жреческую традицию.
-      </li>
-    </ul>
-  </section>
-);
-
-const PracticalApplication = () => (
-  <section className="practical-application" id="practical-application">
-
-    <h2>Применение на практике с помощью нашей нейросети:</h2>
-
-    <div className="showcase">
-      <div className="step__one">
-        <Image src="/flower1.png" alt="Шаг 1" width={320} height={350} className="step_one flower" />
-        <div className="step__one-content-container step-container">
-          <Image src="/photohand.png" alt="Шаг 1" width={150} height={180} className="step__one photo" />
-
-          <div className="under-photo">
-            <strong>Шаг 1:</strong> анализируется линия жизни — ближайшая ключевая точка найдена на середине линии.
-          </div>
-        </div>
-      </div>
-
-      <div className="step__two">
-        <Image src="/flower2.png" alt="Шаг 1" width={280} height={300} className="step__two flower" />
-        <div className="step__two-content-container step-container">
-          <Image src="/photosymbol.png" alt="Шаг 2" width={150} height={180} className="step_two photo" />
-
-          <div className="under-photo">
-            <strong>Шаг 2:</strong> определяется соответствующий символ из майянского календаря, например, Кан — символ возрождения и роста.
-          </div>
-        </div>
-      </div>
-
-      <div className="step__three">
-        <div className="step__three-content-container step-container">
-          <Image src="/photodawn.png" alt="Шаг 3" width={150} height={180} className="step_three photo" />
-          <div className="under-photo">
-            <strong>Шаг 3:</strong> на основе этого делается предсказание: Ожидается важное событие, связанное с изменением жизненной энергии и восстановлением сил в ближайшие 20 дней.
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-);
-
-const FreeTrialSection = () => {
-  const scrollToSection = (sectionId: string) => {
-    const mainContainer = document.querySelector('.main') as HTMLElement | null;
-    const targetSection = document.getElementById(sectionId);
-
-    if (mainContainer && targetSection) {
-      // Получаем верхнюю позицию секции относительно контейнера main
-      const sectionTop = targetSection.offsetTop;
-
-      // Прокручиваем main с отступом 100 пикселей выше
-      mainContainer.scrollTo({
-        top: sectionTop - 50,
-        behavior: 'smooth',
-      });
-    }
-  };
+const Init = () => {
   return (
-    <section className="free-trial-section" id="free-trial-section">
-      <div className="content">
+    <Box sx={{ ...templates.relative, width: "100%", height: "90vh", padding: '0 5vw', display: 'flex', justifyContent: 'space-between', alignItems: 'space-between' }}>
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: "grid",
+          alignItems: 'center',
+          gap: "16px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(1fr, 1fr))",
+          padding: "20px",
+        }}
+      >
+        <Block
+          imageSrc="/block-background.png"
+          head='NAHUAL VISIONS - это'
+          body='Nahual Visions - наша платформа, предоставляющая уникальный алгоритм предсказаний, основанный на математической связи линий на Вашей руке и небесным календарём майя.'
+          sx={{
+            width: '39vh',
+            height: '39vh'
+          }} />
+        <Block
+          imageSrc="/block-background.png"
+          head='Нетерпится начать?'
+          body='зарегистрируйтесь, определите тариф использования или воспользуйтесь бесплатной попыткой, просто нажав на ладонь справа:'
+          sx={{
+            width: '39vh',
+            height: '39vh'
+          }} />
+      </Box>
 
-        <h2>Попробуйте бесплатную версию!</h2>
-        <p>
-          Данный алгоритм объединяет два древних метода предсказаний: хиромантию и майянские календари. Применение линий на руке в сочетании с символикой и цикличностью времени у майя позволяет формировать прогнозы ближайшего будущего с глубоким духовным и символическим контекстом. Неделю и три попытки мы предоставляем бесплатно.
-        </p>
-        <div className="auth text">
-          <button className="register">
-            Registration
-          </button>
-          <button className="login">
-            Login
-          </button>
-        </div>
+      <Box
+        sx={{
+          ...templates.fixed,
+          width: "13rem",
+          height: "13rem",
+          top: '10%',
+          left: 'calc(33% + 6rem)',
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1,
+          overflow: "visible",
+          opacity: '0.9',
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            borderRadius: "50%",
+            background: "none",
+            boxShadow: "0 0 20px 10px rgba(58,75,202, 1)",
+            animation: "cosmicShadow 4s infinite alternate",
+            "@keyframes cosmicShadow": {
+              from: {
+                boxShadow: "0 0 20px 10px rgba(58,75,202, 1)",
+                opacity: 0.7,
+              },
+              to: {
+                boxShadow: "0 0 40px 20px rgba(58,75,202, 0.3)",
+                opacity: 0.3,
+              },
+            },
+            zIndex: 0,
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            width: "78%",
+            height: "78%",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, #f3ff6b, #F7E59D)",
+            animation: "yellowGlow 2s infinite alternate",
+            "@keyframes yellowGlow": {
+              from: {
+                transform: "scale(0.99)",
+                opacity: 1,
+              },
+              to: {
+                transform: "scale(1.01)",
+                opacity: 0.7,
+              },
+            },
+            zIndex: 2,
+          }}
+        />
+        <Box
+          component="img"
+          className="playbutton"
+          src="/playbutton.png"
+          alt=""
+          sx={{
+            width: "100%",
+            height: "100%",
+            cursor: "grab",
+            opacity: "1",
+            zIndex: 3,
+          }}
+        />
+      </Box>
 
-        <h2>Хотите больше?</h2>
-        <p>
-          Ознакомьтесь с платными планами на предсказания, еженедельные рассылки советов на основе наших алгоритмов и прочих преимуществ для наших пользователей.
-        </p>
-        <button className="invisible-button" onClick={() => scrollToSection('pricing')} id="next-button">
-          <Image src="/downarrow.png" width={64} height={64} alt="Далее" className="arrow-down" />
-        </button>
-      </div>
-    </section>
-  )
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: "grid",
+          alignItems: 'center',
+          justifyContent: 'right',
+          gap: "16px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(1fr, 1fr))",
+          padding: "20px",
+        }}
+      >
+        <Block
+          imageSrc="/block-background.png"
+          head='NAHUAL VISIONS - это'
+          body='Nahual Visions - наша платформа, предоставляющая уникальный алгоритм предсказаний, основанный на математической связи линий на Вашей руке и небесным календарём майя.'
+          sx={{
+            width: '39vh',
+            height: '39vh'
+          }} />
+        <Block
+          imageSrc="/block-background.png"
+          head='Нетерпится начать?'
+          body='зарегистрируйтесь, определите тариф использования или воспользуйтесь бесплатной попыткой, просто нажав на ладонь справа:'
+          sx={{
+            width: '39vh',
+            height: '39vh'
+          }} />
+      </Box>
+    </Box>
+  );
 };
-
-const Subscriptions = () => (
-  <section className="pricing" id="pricing">
-    <h2>Тарифные планы</h2>
-    <Pricing/>
-  </section>
-);
-
-const Footer = () => (
-  <footer className="footer">
-
-  </footer>
-);
 
 export default function Home() {
   useEffect(() => {
-    const main = document.querySelector('.main') as HTMLElement | null;
+    const wheel = document.querySelector(".outer-wheel") as HTMLElement | null;
+    const playWheel = document.querySelector(".core-wheel") as HTMLElement | null;
 
-    const handleScroll = () => {
-      const sections = Array.from(document.querySelectorAll('.main section')) as HTMLElement[];
+    let lastAngle = 0;
+    let accumulatedAngle = 0;
 
-      sections.forEach((section) => {
-        if (section.classList.contains('right-side') || section.classList.contains('intro')) return;
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!wheel || !playWheel) return;
 
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        const mainScrollTop = main!.scrollTop;
-        const mainVisibleBottom = mainScrollTop + main!.clientHeight;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
 
-        // Смещение в 200px выше
-        const isVisible =
-          sectionTop < mainVisibleBottom - 400 && sectionBottom > mainScrollTop;
+      const deltaX = event.clientX - centerX;
+      const deltaY = event.clientY - centerY;
 
-        if (isVisible) {
-          section.classList.add('visible');
-        } else {
-          section.classList.remove('visible');
-        }
-      });
-    };
+      const currentAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+      const angleDiff = currentAngle - lastAngle;
 
-    main?.addEventListener('scroll', handleScroll);
-
-    return () => main?.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const main = document.querySelector('.main') as HTMLElement | null;
-    const wheel = document.querySelector('.outer-wheel') as HTMLElement | null;
-    const playWheel = document.querySelector('.core-wheel') as HTMLElement | null;
-
-    let lastScrollTop = 0;
-    let rotation = 0;
-
-    const handleScroll = () => {
-      const mainScrollTop = main!.scrollTop;
-      const delta = mainScrollTop - lastScrollTop; // Изменение позиции прокрутки
-
-      // Вычисляем новый угол поворота
-      rotation += delta * 0.15;
-      if (wheel) {
-        wheel.style.transform = `rotate(-${rotation}deg)`; // Применяем поворот к `wheel`
-      }
-      if (playWheel) {
-        playWheel.style.transform = `rotate(${rotation}deg)`;
+      if (Math.abs(angleDiff) > 180) {
+        accumulatedAngle += angleDiff > 0 ? angleDiff - 360 : angleDiff + 360;
+      } else {
+        accumulatedAngle += angleDiff;
       }
 
-      lastScrollTop = mainScrollTop; // Обновляем последнюю позицию прокрутки
+      wheel.style.transform = `rotate(${accumulatedAngle}deg)`;
+      playWheel.style.transform = `rotate(${-accumulatedAngle}deg)`;
+
+      lastAngle = currentAngle;
     };
 
-    main?.addEventListener('scroll', handleScroll);
+    window.addEventListener("mousemove", handleMouseMove);
 
-    return () => main?.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
-
 
   return (
-    <StyleLayout>
-      <div className="main">
-        <Background />
-        <Header />
-        <SectionNav />
-        <Wheel />
-        <Intro />
-        <PredictionTheory />
-        <PredictionFormula />
-        <PracticalApplication />
-        <FreeTrialSection />
-        <Subscriptions />
-        <Footer />
-      </div>
-    </StyleLayout>
+    <Box
+      className="main"
+      sx={{
+        ...templates.relative,
+        width: "100vw",
+        height: "100vh",
+        overflow: "auto",
+      }}
+    >
+      <Header />
+      <Background />
+      <Wheel />
+      <Init />
+    </Box>
   );
 }

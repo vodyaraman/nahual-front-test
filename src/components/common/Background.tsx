@@ -9,13 +9,16 @@ export default function Background() {
       width={1000}
       height={1000}
       style={{
-        zIndex: '-1',
+        zIndex: '0',
         backgroundColor: '#000000',
         position: 'fixed',
+        top: '-25vh',
         width: '100vw',
-        height: '100vh',
+        height: '100vw',
         minWidth: '1000px',
-        objectFit: 'cover',
+        objectFit: 'fill',
+        opacity: '0.45',
+        filter: 'blur(5px)'
       }}
     />
   );

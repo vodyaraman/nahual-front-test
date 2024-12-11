@@ -56,9 +56,8 @@ export default function Header() {
                         textAlign: "center",
                         justifyContent: "flex-start",
                         alignItems: "center",
-                        backgroundColor: "#160421df",
-                        border: '3px solid #896F5C',
-                        width: "88%",
+                        backgroundColor: "#050505d7",
+                        width: "100%",
                         height: "60px",
                     }}
                 >
@@ -71,7 +70,7 @@ export default function Header() {
                     >
                         <Link href="/" passHref>
                             <Image
-                                src="./nahual-logo.svg"
+                                src="/nahual-logo2.png"
                                 alt=""
                                 width={71}
                                 height={71}

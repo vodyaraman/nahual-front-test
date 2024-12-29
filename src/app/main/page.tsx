@@ -2,7 +2,7 @@
 import React from "react";
 import StateLayout from '@/components/layouts/StateLayout';
 import StyleLayout from '@/components/layouts/StyleLayout';
-import Header from "@/components/common/Header";
+import Header from "@/components/common/header/Header";
 import Background from "@/components/common/Background";
 
 export default function MainAction() {

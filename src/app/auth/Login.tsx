@@ -57,6 +57,7 @@ export default function LoginForm() {
           error={!!errors.email}
           helperText={errors.email ? String(errors.email.message) : ''}
           FormHelperTextProps={{ sx: { fontSize: '0.75rem' } }}
+          color='secondary'
         />
         <TextField
           fullWidth

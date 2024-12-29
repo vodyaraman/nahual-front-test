@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from '@mui/material';
 import StyleLayout from '@/components/layouts/StyleLayout';
-import Header from '@/components/common/Header';
+import Header from '@/components/common/header/Header';
 import Background from '@/components/common/Background';
 import ProfileSettings from './Settings';
 import { useGetUserProfileQuery } from '@/state/profile/profileApi';

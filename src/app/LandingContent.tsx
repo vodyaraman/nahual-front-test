@@ -1,6 +1,6 @@
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
-import { contentData } from "./data/contentData";
+import { contentData } from "@/data/contentData";
 
 export default function LandingContent() {
   return (

@@ -1,0 +1,89 @@
+main {
+    &.auth-container {
+      min-height: 100vh;
+      background-image: url('/auth2.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+  
+      .auth-content {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        height: calc(100vh - 60px);
+        border-radius: 10px;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        backdrop-filter: blur(8px);
+  
+        .login-form-container, .auth-form-skeleton {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          height: calc(90vh - 60px);
+          width: 400px;
+          padding: 20px;
+          gap: 1rem;
+          border-radius: 10px;
+          border: 1px solid #b3b0b05b;
+          backdrop-filter: blur(8px);
+          background-color: #1a1818ef;
+  
+          .login-form {
+            width: 100%;
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+  
+            .form-field {
+              width: 100%;
+
+              label {
+                margin-left: 5px;
+                font-size: 1rem;
+                color: #f0e8e7;
+                transition: all 0.2s ease-in-out;
+                pointer-events: none;
+              }
+  
+              input {
+                width: 100%;
+                padding: 10px;
+                font-size: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: transparent;
+                color: #f0e8e7;
+                scale: 1;
+                transition: scale 0.5s ease;
+  
+                &:focus {
+                  outline: none;
+                  scale: 1.01;
+                }
+              }
+  
+              .form-error {
+                display: flex;
+                float: right;
+                font-size: 0.75rem;
+                color: #d9534f;
+                margin-top: 10px;
+              }
+            }   
+          }
+  
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  

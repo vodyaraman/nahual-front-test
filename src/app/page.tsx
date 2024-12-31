@@ -18,6 +18,7 @@ const DynamicContent = dynamic(() => import('./LandingContent'), {
   loading: () => <LoadingSkeleton height="60px" />,
 });
 
+// Метаданные текущей страницы
 export const metadata = {
   title: 'Nahual Visions - Откройте своё будущее',
   description: 'Узнайте своё будущее с помощью ИИ, который анализирует жизненную линию руки и древние календари Майя. Уникальный инструмент предсказаний!',

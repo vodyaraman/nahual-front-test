@@ -1,50 +1,42 @@
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
-
-const cardData = Array.from({ length: 8 }, (_, index) => ({
-    head: `Card Title ${index + 1}`,
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
-    link: "/",
-}));
+import { contentData } from "./data/contentData";
 
 export default function LandingContent() {
-    return (
-        <section className="landing-content">
-            {/* Первый грид */}
-            <div className="card-grid">
-                {cardData.slice(0, 2).map((card, index) => (
-                    <Card
-                        key={index}
-                        head={card.head}
-                        body={card.body}
-                        link={card.link}
-                    />
-                ))}
-            </div>
+  return (
+    <section className="landing-content">
+      {/* Компонент Wheel */}
+      <div className="main-content">
+        <Card
+          key={0}
+          head={contentData[0].head}
+          body={contentData[0].body}
+        >
+          <Wheel />
+        </Card>
+      </div>
 
-            {/* Компонент Wheel */}
-            <div className="main-content">
-                <Card
-                    key={99}
-                    head={"Добро пожаловать!"}
-                    body={"Приходите, покупайте, свои деньги оставляйте, про покупку забывайте, приходите, покупайте!"}
-                    link={""}
-                >
-                    <Wheel />
-                </Card>
-            </div>
+      {/* Первый грид */}
+      <div className="card-grid">
+        {[contentData[1], contentData[3]].map((card, index) => (
+          <Card
+            key={index + 1}
+            head={card.head}
+            body={card.body}
+          />
+        ))}
+      </div>
 
-            {/* Второй грид */}
-            <div className="card-grid">
-                {cardData.slice(2, 4).map((card, index) => (
-                    <Card
-                        key={index + 2} // Увеличиваем индекс для уникального ключа
-                        head={card.head}
-                        body={card.body}
-                        link={card.link}
-                    />
-                ))}
-            </div>
-        </section>
-    );
+      {/* Второй грид */}
+      <div className="card-grid">
+        {[contentData[2], contentData[4]].map((card, index) => (
+          <Card
+            key={index + 3}
+            head={card.head}
+            body={card.body}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }

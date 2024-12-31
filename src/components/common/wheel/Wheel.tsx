@@ -97,7 +97,7 @@ const Wheel = () => {
       <Box
         className={`wheel-container ${isLoading ? "" : "loaded"}`}
         sx={{
-          transition: "opacity 0.3s ease",
+          transition: "opacity 0.5s ease",
         }}
       >
         <Box

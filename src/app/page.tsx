@@ -18,24 +18,24 @@ const DynamicContent = dynamic(() => import('./LandingContent'), {
   loading: () => <LoadingSkeleton height="60px" />,
 });
 
-// Уникальные метаданные для страницы
 export const metadata = {
-  title: 'Nahual Visions - главная страница',
-  description: 'Это уникальное описание главной страницы для SEO.',
+  title: 'Nahual Visions - Откройте своё будущее',
+  description: 'Узнайте своё будущее с помощью ИИ, который анализирует жизненную линию руки и древние календари Майя. Уникальный инструмент предсказаний!',
   openGraph: {
-    title: 'Главная страница - Название сайта',
-    description: 'Описание главной страницы для социальных сетей.',
-    url: 'https://example.com',
+    title: 'Nahual Visions - Узнайте своё будущее',
+    description: 'Искусственный интеллект и древние знания Майя объединены для точных предсказаний. Ваше будущее на ладони!',
+    url: 'https://nahualvisions.com',
     images: [
       {
         url: '/og-home.jpg',
         width: 1200,
         height: 630,
-        alt: 'Главная страница OG Image',
+        alt: 'Nahual Visions - Колесо предсказаний',
       },
     ],
   },
 };
+
 
 export default function HomePage() {
   return (

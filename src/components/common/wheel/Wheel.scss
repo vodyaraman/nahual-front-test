@@ -16,7 +16,7 @@
   }
   
   .outer-wheel {
-    position: fixed;
+    position: absolute;
     width: calc(400px + 15rem);
     height: calc(400px + 15rem);
     top: 10%;
@@ -25,10 +25,10 @@
   }
   
   .core-wheel {
-    position: fixed;
+    position: absolute;
     width: 11rem;
     height: 11rem;
-    top: 54%;
+    top: calc(10% + 115px + 7.5rem);
     z-index: -1;
     transition: all 0.3s ease;
   }

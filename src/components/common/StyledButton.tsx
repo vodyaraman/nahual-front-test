@@ -21,6 +21,7 @@ const defaultSx = {
   alignItems: "center",
   justifyContent: "center",
   minHeight: "auto",
+  width: '100%',
 };
 
 export default function StyledButton({

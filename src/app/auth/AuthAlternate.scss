@@ -1,0 +1,75 @@
+/* Очень маленькие устройства (меньше 576px) */
+@media (max-width: 575.98px) {
+    main {
+        &.auth-container {
+            .auth-content {
+                width: 100vw;
+                padding: 0;
+                transform: translateY(20%);
+                overflow: hidden;
+
+                .login-form-container,
+                .registration-form-container,
+                .auth-form-skeleton {
+                    width: 100%;
+                    height: 40vh;
+
+                    .login-form,
+                    .registration-form {
+                        .form-field {}
+                    }
+                }
+
+                .form-error {
+                    &.global-error {}
+                }
+
+                .auth-aside,
+                .auth-aside-skeleton {
+                    width: 100%;
+
+                    .oauth-text {}
+
+                    .oauth-loading {}
+
+                    .oauth-buttons {
+                        .oauth-button {
+                            &:hover {}
+
+                            &:active {}
+
+                            img {}
+                        }
+                    }
+
+                    .oauth-error {}
+                }
+            }
+        }
+    }
+}
+
+/* Маленькие устройства (от 576px до 767px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* стили для смартфонов в ландшафтной ориентации */
+}
+
+/* Средние устройства (от 768px до 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* стили для планшетов */
+}
+
+/* Большие устройства (от 992px до 1440px) */
+@media (min-width: 992px) and (max-width: 1439.98px) {
+    /* стили для ноутбуков и стандартных десктопов */
+}
+
+/* Очень большие устройства (от 1440px до 1919px) */
+@media (min-width: 1440px) and (max-width: 1919.98px) {
+    /* стили для больших мониторов и десктопов высокого разрешения */
+}
+
+/* Ультраширокие экраны и 4K (1920px и более) */
+@media (min-width: 1920px) {
+    /* стили для 4K-мониторов и ультрашироких дисплеев */
+}

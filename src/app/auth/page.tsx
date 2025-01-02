@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import './Auth.scss'
+import './AuthAlternate.scss'
 import { Skeleton } from '@mui/material';
 import dynamic from 'next/dynamic';
 

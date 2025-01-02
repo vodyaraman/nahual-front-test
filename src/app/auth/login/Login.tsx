@@ -31,15 +31,17 @@ export default function LoginForm() {
 
   return (
     <div className="login-form-container">
-      <StyledTypography>
-        Вход в систему
-      </StyledTypography>
       <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+
+        <StyledTypography>
+          Вход в систему
+        </StyledTypography>
+
         <div className="form-field">
-          <label htmlFor="email">Email<div className="form-error">{errors.password && <>{errors.password.message}</>}</div></label>
           <input
             id="email"
             type="text"
+            placeholder=" "
             {...register('email', {
               required: 'Email is required',
               pattern: {
@@ -48,20 +50,29 @@ export default function LoginForm() {
               },
             })}
           />
+          <label htmlFor="email">
+            {errors.email ? (
+              <div className='form-error'> {errors?.email?.message}</div>
+            ) : (
+              <>Email</>
+            )}
+          </label>
         </div>
 
         <div className="form-field">
-          <label htmlFor="password">Password</label>
-          <div className="form-error">{errors.password && <>{errors.password.message}</>}</div>
           <input
             id="password"
             type="password"
+            placeholder=" "
             {...register('password', { required: 'Password is required' })}
           />
-        </div>
-
-        <div className="form-error global-error">
-          {error && <>Login failed. Please check your credentials</>}
+          <label htmlFor="password">
+            {errors.password ? (
+              <div className='form-error'> {errors?.password?.message}</div>
+            ) : (
+              <>Password</>
+            )}
+          </label>
         </div>
 
         <StyledButton
@@ -69,9 +80,14 @@ export default function LoginForm() {
           color='secondary'
           type="submit"
           disabled={isLoading}
-          sx={{ color: '#000' }}>
+          sx={{ color: '#000' }}
+        >
           {isLoading ? 'Logging in...' : 'Continue'}
         </StyledButton>
+
+        <div className="form-error global-error">
+          {error && <>Login failed. Please check your credentials</>}
+        </div>
       </form>
     </div>
   );

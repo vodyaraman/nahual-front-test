@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRegisterMutation } from '@/state/auth/authApi';
 import { setTokens } from '@/state/auth/authSlice';
+import StyledButton from '@/components/common/StyledButton';
+import StyledTypography from '@/components/common/StyledTypography';
 
 interface RegisterFormInputs {
   username: string;
@@ -23,113 +26,120 @@ export default function RegisterForm() {
       const { username, email, password } = data;
       const response = await registerUser({ username, email, password }).unwrap();
       dispatch(setTokens(response));
-      console.log('Registration successful');
+      window.location.href = '/profile';
     } catch (err) {
       console.error('Registration failed', err);
     }
   };
 
-  // Функция для извлечения первого сообщения об ошибке
-  const getFirstErrorMessage = () => {
-    if (errors.username) return String(errors.username.message);
-    if (errors.email) return String(errors.email.message);
-    if (errors.password) return String(errors.password.message);
-    if (errors.confirmPassword) return String(errors.confirmPassword.message);
-    return null;
-  };  
-
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        maxWidth: 400,
-        mx: '0',
-        p: 2,
-        borderRadius: 2,
-        boxShadow: 3,
-        animation: "fadeInUp 0.5s linear"
-      }}
-    >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Отображение первого сообщения об ошибке */}
-        {getFirstErrorMessage() && (
-          <Typography color="error" sx={{ fontSize: '0.75rem', mb: 2, textAlign: "center"}}>
-            {getFirstErrorMessage()}
-          </Typography>
+    <div className="registration-form-container">
+      <form className="registration-form" onSubmit={handleSubmit(onSubmit)}>
+        <StyledTypography>
+          Регистрация
+        </StyledTypography>
+
+        {errors.username && (
+          <div className="form-error global-error">
+            {errors.username.message}
+          </div>
         )}
 
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Username"
-          InputProps={{ sx: { fontSize: '0.75rem' } }}
-          InputLabelProps={{ sx: { fontSize: '0.75rem' } }}
-          {...register("username", { 
-            required: "Username is required",
-            minLength: { value: 3, message: "Username must be at least 3 characters" },
-            maxLength: { value: 20, message: "Username cannot exceed 20 characters" }
-          })}
-          error={!!errors.username}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Email"
-          InputProps={{ sx: { fontSize: '0.75rem' } }}
-          InputLabelProps={{ sx: { fontSize: '0.75rem' } }}
-          {...register("email", { 
-            required: "Email is required",
-            pattern: {
-              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: "Enter a valid email address"
-            }
-          })}
-          error={!!errors.email}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Password"
-          type="password"
-          InputProps={{ sx: { fontSize: '0.75rem' } }}
-          InputLabelProps={{ sx: { fontSize: '0.75rem' } }}
-          {...register("password", { 
-            required: "Password is required",
-            minLength: { value: 8, message: "Password must be at least 8 characters" },
-            maxLength: { value: 32, message: "Password cannot exceed 32 characters" }
-          })}
-          error={!!errors.password}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Confirm Password"
-          type="password"
-          InputProps={{ sx: { fontSize: '0.75rem' } }}
-          InputLabelProps={{ sx: { fontSize: '0.75rem' } }}
-          {...register("confirmPassword", {
-            required: "Please confirm your password",
-            validate: value => value === password || "Passwords do not match"
-          })}
-          error={!!errors.confirmPassword}
-        />
-        {error && (
-          <Typography color="error" sx={{ fontSize: '0.75rem', mt: 1, textAlign: 'center' }}>
-            Registration failed. Please try again.
-          </Typography>
-        )}
-        <Button
-          fullWidth
+        <div className="form-field">
+          <input
+            id="username"
+            type="text"
+            placeholder=" "
+            {...register("username", { 
+              required: "Username is required",
+              minLength: { value: 3, message: "Username must be at least 3 characters" },
+              maxLength: { value: 20, message: "Username cannot exceed 20 characters" }
+            })}
+          />
+          <label htmlFor="username">
+            {errors.username ? (
+              <div className='form-error'>{errors.username.message}</div>
+            ) : (
+              <>Username</>
+            )}
+          </label>
+        </div>
+
+        <div className="form-field">
+          <input
+            id="email"
+            type="email"
+            placeholder=" "
+            {...register("email", { 
+              required: "Email is required",
+              pattern: {
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: "Enter a valid email address"
+              }
+            })}
+          />
+          <label htmlFor="email">
+            {errors.email ? (
+              <div className='form-error'>{errors.email.message}</div>
+            ) : (
+              <>Email</>
+            )}
+          </label>
+        </div>
+
+        <div className="form-field">
+          <input
+            id="password"
+            type="password"
+            placeholder=" "
+            {...register("password", { 
+              required: "Password is required",
+              minLength: { value: 8, message: "Password must be at least 8 characters" },
+              maxLength: { value: 32, message: "Password cannot exceed 32 characters" }
+            })}
+          />
+          <label htmlFor="password">
+            {errors.password ? (
+              <div className='form-error'>{errors.password.message}</div>
+            ) : (
+              <>Password</>
+            )}
+          </label>
+        </div>
+
+        <div className="form-field">
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder=" "
+            {...register("confirmPassword", {
+              required: "Please confirm your password",
+              validate: value => value === password || "Passwords do not match"
+            })}
+          />
+          <label htmlFor="confirmPassword">
+            {errors.confirmPassword ? (
+              <div className='form-error'>{errors.confirmPassword.message}</div>
+            ) : (
+              <>Confirm Password</>
+            )}
+          </label>
+        </div>
+
+        <StyledButton
+          variant='contained'
+          color='secondary'
           type="submit"
-          variant="contained"
           disabled={isLoading}
-          sx={{ mt: 2, fontSize: '0.75rem' }}
+          sx={{ color: '#000' }}
         >
           {isLoading ? 'Registering...' : 'Register'}
-        </Button>
+        </StyledButton>
+
+        <div className="form-error global-error">
+          {error && <>Registration failed. Please try again.</>}
+        </div>
       </form>
-    </Box>
+    </div>
   );
 }

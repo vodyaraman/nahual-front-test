@@ -28,7 +28,7 @@ export default function Header() {
         if (refreshToken) {
             return (
                 <>
-                    <StyledButton variant="contained" color="secondary" href="/profile">
+                    <StyledButton variant="contained" color="secondary" href="/profile" sx={{ color: '#000' }}>
                         Профиль
                     </StyledButton>
                     <StyledButton variant="outlined" color="secondary" onClick={handleLogout}>

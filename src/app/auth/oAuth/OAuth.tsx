@@ -1,7 +1,6 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button, Stack, Typography, CircularProgress } from '@mui/material';
 
 interface OAuthButtonProps {
     platform: 'vk' | 'yandex' | 'gosuslugi' | 'telegram';
@@ -12,22 +11,21 @@ const platformIcons = {
     vk: '/auth-vk.svg',
     yandex: '/auth-yandex.svg',
     gosuslugi: '/auth-gosuslugi.svg',
-    telegram: '/auth-telegram.svg'
+    telegram: '/auth-telegram.svg',
 };
 
 const platformLabels = {
     vk: 'ВКонтакте',
     yandex: 'Яндекс',
     gosuslugi: 'Госуслуги',
-    telegram: 'Telegram'
+    telegram: 'Telegram',
 };
 
 const OAuthButton: React.FC<OAuthButtonProps> = ({ platform, onClick }) => (
-    <Button
+    <button
         onClick={onClick}
         aria-label={`Login with ${platformLabels[platform]}`}
-        variant="contained"
-        sx={{ minWidth: 0, padding: 0, borderRadius: '50%', width: 32, height: 32 }}
+        className="oauth-button"
     >
         <Image 
             src={platformIcons[platform]} 
@@ -35,7 +33,7 @@ const OAuthButton: React.FC<OAuthButtonProps> = ({ platform, onClick }) => (
             width={32} 
             height={32} 
         />
-    </Button>
+    </button>
 );
 
 const OAuthButtons: React.FC = () => {
@@ -66,22 +64,20 @@ const OAuthButtons: React.FC = () => {
     };
 
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="body2" color="textSecondary">
-                or use
-            </Typography>
+        <>
+            <p className="oauth-text">или используйте</p>
             {isLoading ? (
-                <CircularProgress color="secondary" />
+                <div className="oauth-loading">Loading...</div>
             ) : (
-                <Stack direction="row" spacing={2}>
+                <div className="oauth-buttons">
                     <OAuthButton platform="vk" onClick={() => handleOAuthLogin('vk')} />
                     <OAuthButton platform="yandex" onClick={() => handleOAuthLogin('yandex')} />
                     <OAuthButton platform="gosuslugi" onClick={() => handleOAuthLogin('gosuslugi')} />
                     <OAuthButton platform="telegram" onClick={() => handleOAuthLogin('telegram')} />
-                </Stack>
+                </div>
             )}
-            {error && <Typography color="error">{error}</Typography>}
-        </Stack>
+            {error && <p className="oauth-error">{error}</p>}
+        </>
     );
 };
 

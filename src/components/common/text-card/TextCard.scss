@@ -31,18 +31,19 @@
     .card-content {
         min-height: 250px;
         padding: 16px;
-        color: #f7f0d3;
 
         .card-title {
             margin-bottom: 8px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             text-align: center;
+            color: #f7f3e5;
         }
 
         .card-body {
             margin-bottom: 16px;
             font-size: 0.9rem;
+            color: #f7f0d3;
         }
 
         .card-link {

@@ -1,53 +1,53 @@
 /* Глобальные стили для главной страницы */
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-
-  &.page-background {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     min-height: 100vh;
-    background-image: url('/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  section {
-    &.landing-content {
-      width: 100%;
-      min-height: calc(100vh - 60px);
-      height: auto;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 1rem 2rem;
-      overflow: hidden;
-      gap: 0.5rem;
-
-      backdrop-filter: blur(8px);
-
-      .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  
+    &.page-background {
+      min-height: 100vh;
+      background-image: url('/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  
+    section {
+      &.landing-content {
         width: 100%;
-        min-height: 60vh;
-        max-height: 90vh;
-        height: calc(90vh - 60px);
-      }
-
-      .main-content {
+        min-height: calc(100vh - 60px);
+        height: auto;
         position: relative;
         display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem 2rem;
+        overflow: hidden;
         gap: 0.5rem;
-        width: 100%;
-        height: calc(90vh - 60px);
+  
+        backdrop-filter: blur(8px);
+  
+        .card-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 0.5rem;
+          width: 100%;
+          min-height: 60vh;
+          max-height: 90vh;
+          height: calc(90vh - 60px);
+        }
+
+        .main-content {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+            width: 100%;
+            height: calc(90vh - 60px);
+        }
       }
     }
   }
-}

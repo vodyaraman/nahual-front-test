@@ -1,0 +1,120 @@
+main {
+    &.page-background {
+        min-height: 100vh;
+        background-image: url('/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    section {
+        &.profile-content {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            border-radius: 10px;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(8px);
+
+            .profile-header {
+                position: sticky;
+                top: 0;
+                width: 100%;
+                max-width: 400px;
+                height: calc(90vh - 60px);
+                display: flex;
+
+                .profile-header-navigation {
+                    position: relative;
+                    width: 100%;
+                    color: #f5eeee;
+
+                    ul {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        list-style: none;
+                        gap: 20px;
+                        transition: all 0.3 ease;
+                        position: relative;
+
+                        /* Фоновая линия для активного элемента */
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 50px; /* Высота кнопки */
+                            background-color: rgba(50, 50, 50, 0.5); /* Цвет заднего фона */
+                            border-radius: 10px;
+                            transition: transform 0.3s ease, height 0.3s ease;
+                            z-index: -1;
+                            transform: translateY(0); /* Начальная позиция */
+                        }
+
+                        li {
+                            position: relative;
+
+                            button {
+                                width: 100%;
+                                font-size: 1.4rem;
+                                font-weight: bold;
+                                padding: 10px 15px;
+                                color: #e6dede;
+                                background-color: transparent;
+                                border-radius: 10px;
+                                border: none;
+                                position: relative;
+                                z-index: 1; /* Чтобы кнопка была выше фона */
+
+                                &:hover {
+                                    filter: contrast(0.95);
+                                }
+
+                                &.active {
+                                    color: #ffffff;
+                                }
+                            }
+
+                            /* Обновляем позицию фона для активного элемента */
+                            &:nth-child(1):hover ~ ul::before,
+                            &:nth-child(1) .active ~ ul::before {
+                                transform: translateY(0);
+                            }
+                            &:nth-child(2):hover ~ ul::before,
+                            &:nth-child(2) .active ~ ul::before {
+                                transform: translateY(70px); /* Позиция второй кнопки */
+                            }
+                            &:nth-child(3):hover ~ ul::before,
+                            &:nth-child(3) .active ~ ul::before {
+                                transform: translateY(140px); /* Позиция третьей кнопки */
+                            }
+                        }
+                    }
+                }
+            }
+
+            .profile-grid {
+                display: grid;
+                grid-template-columns: repeat(1, minmax(300px, 1fr));
+                grid-template-rows: repeat(3, calc(90vh - 60px));
+                gap: 10vh;
+                width: 100%;
+                height: calc(90vh - 60px);
+                overflow: hidden;
+
+                .grid-item {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

@@ -54,7 +54,7 @@ const TextCard = ({
         ...sx,
       }}
     >
-      <div
+      <article
         className="card"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -111,7 +111,7 @@ const TextCard = ({
             )}
           </a>
         </div>
-      </div>
+      </article>
     </div>
   );
 };

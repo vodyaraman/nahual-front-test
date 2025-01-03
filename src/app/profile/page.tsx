@@ -1,12 +1,17 @@
 import Header from '@/components/common/header/Header';
 import './Profile.scss';
-import { ProfileContent } from './ProfileContent';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@mui/material';
+
+const DynamicContent = dynamic(() => import('./ProfileContent'), {
+  loading: () => <Skeleton height="60px" />,
+});
 
 const ProfilePage = () => {
   return (
       <main className="main page-background">
         <Header />
-        <ProfileContent/>
+        <DynamicContent/>
       </main>
   );
 };

@@ -5,7 +5,7 @@ type StyledButtonProps = {
   variant: "contained" | "outlined";
   color: "secondary" | "primary";
   onClick?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   href?: string;
   type?: "button" | "submit" | "reset"; // Добавлен проп `type`
   disabled?: boolean; // Добавлен проп `disabled`

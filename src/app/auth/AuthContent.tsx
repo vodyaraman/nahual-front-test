@@ -12,7 +12,7 @@ const OAuthButtons = lazy(() => import('./oAuth/OAuth'))
 
 export default function AuthContent() {
     const [authMode, setAuthMode] = useState<'login' | 'register' | 'none'>('none');
-    const [isAuthModeLoading, setIsAuthModeLoading] = useState(true); // Состояние загрузки authMode
+    const [isAuthModeLoading, setIsAuthModeLoading] = useState(true);
     const searchParams = useSearchParams();
     const router = useRouter();
 

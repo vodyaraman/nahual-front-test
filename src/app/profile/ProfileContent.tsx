@@ -1,87 +1,82 @@
 'use client';
 
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import StyledTypography from "@/components/common/StyledTypography";
+import ProfileHeader from "./ProfileHeader";
+import { Skeleton } from "@mui/material";
+import ProfileLayout from "@/components/layouts/ProfileLayout";
 
-// Лениво загружаем компонент ProfileSettings
 const ProfileSettings = dynamic(() => import("./settings/Settings"), { ssr: false });
 
+export const SECTIONS = [
+    { key: "history", label: "📖 История предсказаний", content: <p>Здесь будет отображаться история ваших предсказаний.</p> },
+    { key: "settings", label: "⚙️ Настройки профиля", content: <ProfileSettings /> },
+    { key: "support", label: "🎧 Поддержка", content: <p>Здесь вы найдете ответы на часто задаваемые вопросы.</p> },
+    { key: "billing", label: "💳 Биллинг", content: <p>Здесь будет отображаться информация о вашем биллинге.</p> },
+] as const;
+
 export function ProfileContent() {
-    const [activeSection, setActiveSection] = useState<"history" | "settings" | "support" | "billing">("history");
-    const [indicatorStyle, setIndicatorStyle] = useState({ transform: "translateY(0px)" });
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const [activeSection, setActiveSection] = useState<typeof SECTIONS[number]["key"] | null>(null);
 
-    const sections = [
-        { key: "history", label: "📖 История предсказаний", content: <p>Здесь будет отображаться история ваших предсказаний.</p> },
-        { key: "settings", label: "⚙️ Настройки профиля", content: <ProfileSettings /> },
-        { key: "support", label: "🎧 Поддержка", content: <p>Здесь вы найдете ответы на часто задаваемые вопросы.</p> },
-        { key: "billing", label: "💳 Биллинг", content: <p>Здесь будет отображаться информация о вашем биллинге.</p> },
-    ] as const;
+    useEffect(() => {
+        const sectionFromQuery = searchParams.get("section") as typeof SECTIONS[number]["key"];
+        if (sectionFromQuery && SECTIONS.some(({ key }) => key === sectionFromQuery)) {
+            setActiveSection(sectionFromQuery);
+        } else {
+            setActiveSection("history");
+            router.push(`?section=history`, {});
+        }
+    }, [searchParams, router]);
 
-    const sectionRefs = {
-        history: useRef<HTMLDivElement>(null),
-        settings: useRef<HTMLDivElement>(null),
-        support: useRef<HTMLDivElement>(null),
-        billing: useRef<HTMLDivElement>(null),
-    };
-
-    const scrollToSection = (sectionKey: typeof sections[number]["key"]) => {
-        setActiveSection(sectionKey);
-
-        const offsetMap = {
-            history: "0px",
-            settings: "calc(6px + 100%)",
-            support: "calc(14px + 200%)",
-            billing: "calc(22px + 300%)",
-        } as const;
-
-        setIndicatorStyle({
-            transform: `translateY(${offsetMap[sectionKey]})`,
-        });
-
-        sectionRefs[sectionKey]?.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        });
+    const handleSectionClick = (key: string) => {
+        setActiveSection(key as typeof SECTIONS[number]["key"]);
+        router.push(`?section=${key}`, {});
     };
 
     return (
-        <section className="profile-content">
-            <header className="profile-header">
-                <article>
-                    <StyledTypography>Добро пожаловать, ИМЯ ФАМИЛИЯ</StyledTypography>
-                    <nav className="profile-header-navigation">
-                        <ul style={{ position: "relative" }}>
-                            {/* Индикатор */}
-                            <div
-                                className="indicator"
-                                style={{
-                                    ...indicatorStyle,
-                                }}
-                            />
-                            {sections.map(({ key, label }) => (
-                                <li key={key}>
-                                    <button
-                                        onClick={() => scrollToSection(key)}
-                                        className={activeSection === key ? "active" : ""}
-                                    >
-                                        {label}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-                </article>
-            </header>
-            <div className="profile-grid">
-                {sections.map(({ key, content }) => (
-                    <div ref={sectionRefs[key]} className="grid-item" id={key} key={key}>
-                        <article>{content}</article>
-                    </div>
-                ))}
-            </div>
-        </section>
+        <ProfileLayout>
+            <section className="profile-content">
+                <div className="profile-header">
+                    {activeSection === null ? (
+                        <article>
+                            <Skeleton variant="text" width="80%" height={50} />
+                            <Skeleton variant="text" width="90%" height={50} />
+                            <Skeleton variant="text" width="90%" height={50} />
+                            <Skeleton variant="text" width="90%" height={50} />
+                        </article>
+                    ) : (
+                        <ProfileHeader
+                            activeSection={activeSection ?? "history"}
+                            handleSectionClick={handleSectionClick}
+                        />
+                    )}
+                </div>
+                <div className="profile-grid">
+                    {activeSection ? (
+                        <div className="grid-item">
+                            <article>
+                                {SECTIONS.find(({ key }) => key === activeSection)?.content}
+                            </article>
+                        </div>
+                    ) : (
+                        // Скелет для содержимого
+                        <div className="grid-item skeleton">
+                            <article>
+                                <Skeleton variant="text" width="80%" height={30} />
+                                <Skeleton variant="text" width="60%" height={30} />
+                                <Skeleton variant="rectangular" width="100%" height={200} />
+                            </article>
+                        </div>
+                    )}
+                </div>
+            </section>
+        </ProfileLayout>
     );
 }
 
 export default ProfileContent;
+
+

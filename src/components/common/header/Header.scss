@@ -24,6 +24,12 @@
         padding: 0rem 2rem;
     }
 
+    @media (max-width: 575.98px) {
+        .header__container {
+            padding: 0rem 0.4rem;
+        }
+    }
+
     &__logo-wrapper {
         height: 100%;
         cursor: pointer;

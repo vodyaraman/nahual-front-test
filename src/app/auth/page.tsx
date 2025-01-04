@@ -12,11 +12,11 @@ const LoadingSkeleton = ({ height }: { height: string | number }) => (
   );
 // Динамическая загрузка компонентов
 const DynamicHeader = dynamic(() => import('@/components/common/header/Header'), {
-  loading: () => <LoadingSkeleton height="60px" />,
+  loading: () => <LoadingSkeleton height="5rem" />,
 });
 
 const DynamicContent = dynamic(() => import('./AuthContent'), {
-  loading: () => <LoadingSkeleton height="60px" />,
+  loading: () => <LoadingSkeleton height="5rem" />,
 });
 
 export const metadata = {

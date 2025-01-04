@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { Skeleton } from '@mui/material';
 
 const DynamicContent = dynamic(() => import('./ProfileContent'), {
-  loading: () => <Skeleton height="60px" />,
+  loading: () => <Skeleton height="5rem" />,
 });
 
 const ProfilePage = () => {

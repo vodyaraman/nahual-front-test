@@ -19,7 +19,7 @@
     section {
       &.landing-content {
         width: 100%;
-        min-height: calc(100vh - 60px);
+        min-height: calc(100vh - 5rem);
         height: auto;
         position: relative;
         display: flex;
@@ -38,7 +38,7 @@
           width: 100%;
           min-height: 60vh;
           max-height: 90vh;
-          height: calc(90vh - 60px);
+          height: calc(90vh - 3rem);
         }
 
         .main-content {
@@ -46,7 +46,7 @@
             display: flex;
             gap: 0.5rem;
             width: 100%;
-            height: calc(90vh - 60px);
+            height: calc(90vh - 3rem);
         }
       }
     }

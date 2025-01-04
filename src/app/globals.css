@@ -22,7 +22,8 @@ body {
 body {
   color: #f1e9e9;
   background: var(--background);
-  font-family: "Fira Sans Condensed", sans-serif;;
+  font-family: "Fira Sans Condensed", sans-serif;
+  ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -43,17 +44,23 @@ body {
 }
 
 ::selection {
-  background-color: #f5f2f2; /* Цвет фона выделения */
-  color: #000000;            /* Цвет текста в выделении */
+  background-color: #f5f2f2;
+  /* Цвет фона выделения */
+  color: #000000;
+  /* Цвет текста в выделении */
 }
 
-input:-webkit-autofill, 
-textarea:-webkit-autofill, 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
 select:-webkit-autofill {
-    background-color: transparent !important; /* Устанавливает прозрачный фон или замените на нужный цвет */
-    -webkit-box-shadow: 0 0 0px 1000px #000000 inset; /* Замените #000000 на желаемый цвет фона */
-    -webkit-text-fill-color: #ffffff !important; /* Замените #ffffff на желаемый цвет текста */
-    transition: background-color 5000s ease-in-out 0s; /* Убирает анимацию автозаполнения */
+  background-color: transparent !important;
+  /* Устанавливает прозрачный фон или замените на нужный цвет */
+  -webkit-box-shadow: 0 0 0px 1000px #000000 inset;
+  /* Замените #000000 на желаемый цвет фона */
+  -webkit-text-fill-color: #ffffff !important;
+  /* Замените #ffffff на желаемый цвет текста */
+  transition: background-color 5000s ease-in-out 0s;
+  /* Убирает анимацию автозаполнения */
 }
 
 svg {
@@ -65,32 +72,66 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
 /* Стили для всех скроллбаров */
 * {
-  scrollbar-width: thin; /* Для Firefox: тонкий скроллбар */
-  scrollbar-color: #888 #242222; /* Для Firefox: цвет ползунка и трека */
+  scrollbar-width: thin;
+  /* Для Firefox: тонкий скроллбар */
+  scrollbar-color: #888 #242222;
+  /* Для Firefox: цвет ползунка и трека */
 }
 
 *::-webkit-scrollbar {
-  width: 8px; /* Ширина вертикального скроллбара */
-  height: 8px; /* Высота горизонтального скроллбара */
+  width: 8px;
+  /* Ширина вертикального скроллбара */
+  height: 8px;
+  /* Высота горизонтального скроллбара */
 }
 
 *::-webkit-scrollbar-track {
-  background: #222121; /* Цвет трека (фон скроллбара) */
+  background: #222121;
+  /* Цвет трека (фон скроллбара) */
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #d8d8d8; /* Цвет ползунка */
-  border-radius: 4px; /* Скругление углов ползунка */
+  background: #d8d8d8;
+  /* Цвет ползунка */
+  border-radius: 4px;
+  /* Скругление углов ползунка */
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Цвет ползунка при наведении */
+  background: #555;
+  /* Цвет ползунка при наведении */
+}
+
+/* Очень маленькие устройства (меньше 576px) */
+@media (max-width: 575.98px) {
+  /* стили для смартфонов в портретной ориентации */
+}
+
+/* Маленькие устройства (от 576px до 767px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* стили для смартфонов в ландшафтной ориентации */
+}
+
+/* Средние устройства (от 768px до 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* стили для планшетов */
+}
+
+/* Большие устройства (от 992px до 1440px) */
+@media (min-width: 992px) and (max-width: 1439.98px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* Очень большие устройства (от 1440px до 1919px) */
+@media (min-width: 1440px) and (max-width: 1919.98px) {
+
+}
+
+/* Ультраширокие экраны и 4K (1920px и более) */
+@media (min-width: 1920px) {
+  /* стили для 4K-мониторов и ультрашироких дисплеев */
 }

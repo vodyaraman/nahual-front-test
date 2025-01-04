@@ -89,7 +89,7 @@ export default function Header() {
                         ) : (
                             <div
                                 style={{
-                                    width: "60px",
+                                    width: "5rem",
                                     height: "55px",
                                     display: "flex",
                                     alignItems: "center",

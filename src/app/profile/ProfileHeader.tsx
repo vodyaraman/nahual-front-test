@@ -21,8 +21,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ activeSection, handleSect
     return (
         <header className="profile-header">
             <article>
-                <StyledTypography>
-                    Добро пожаловать,<br /> <b>ИМЯ ФАМИЛИЯ</b>
+                <StyledTypography variant="body1" className="profile-title">
+                    Добро пожаловать,<br /> <b>ИМЯ ФАМИЛИЯ Имя</b>
                 </StyledTypography>
                 <nav className="profile-header-navigation">
                     <ul style={{ position: "relative" }}>

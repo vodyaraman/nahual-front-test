@@ -1,6 +1,6 @@
 .auth-container {
   min-height: 100vh;
-  background-image: url('/auth2.png');
+  background-color: black;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -8,10 +8,10 @@
   .auth-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-height: calc(100vh - 60px);
+    max-height: calc(100vh - 5rem);
     overflow-y: auto;
     border-radius: 10px;
     gap: 0.5rem;
@@ -26,9 +26,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: calc(90vh - 60px);
+      height: calc(90vh - 5rem);
       min-width: 400px;
-      width: auto;
+      width: 25vw;
       padding: 20px;
       border-radius: 10px;
       border: 1px solid #b3b0b05b;
@@ -126,7 +126,7 @@
       backdrop-filter: blur(8px);
       background-color: #1a1818ef;
       min-width: 400px;
-      width: auto;
+      width: 25vw;
 
       .oauth-text {
         width: 100%;

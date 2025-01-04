@@ -5,7 +5,7 @@ import { RootState } from '@/state/store';
 import { useUpdatePasswordMutation } from '@/state/profile/profileApi';
 import StyledTypography from '@/components/common/StyledTypography';
 import StyledButton from '@/components/common/StyledButton';
-import FormInput from '@/components/common/FormInput';
+import FormInput from '@/components/common/form-input/FormInput';
 import './Settings.scss';
 
 const ProfileSettings: React.FC = () => {
@@ -33,9 +33,9 @@ const ProfileSettings: React.FC = () => {
   };
 
   return (
-    <div className="profile-settings">
+    <article className="profile-settings">
       {user ? (
-        <div className="profile-settings__section">
+        <>
           <StyledTypography>Смена пароля</StyledTypography>
           <FormInput
             id="current-password"
@@ -56,11 +56,11 @@ const ProfileSettings: React.FC = () => {
           <StyledButton variant="outlined" color="primary" onClick={handleSavePassword}>
             Сохранить пароль
           </StyledButton>
-        </div>
+        </>
       ) : (
         <StyledTypography>Данные пользователя не найдены.</StyledTypography>
       )}
-    </div>
+    </article>
   );
 };
 

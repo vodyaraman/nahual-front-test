@@ -8,9 +8,10 @@ import { Skeleton } from "@mui/material";
 import ProfileLayout from "@/components/layouts/ProfileLayout";
 
 const ProfileSettings = dynamic(() => import("./settings/Settings"), { ssr: false });
+const ProfileStory = dynamic(() => import("./story/StoryTeller"), { ssr: false });
 
 export const SECTIONS = [
-    { key: "history", label: "📖 История предсказаний", content: <p>Здесь будет отображаться история ваших предсказаний.</p> },
+    { key: "history", label: "📖 История предсказаний", content: <ProfileStory /> },
     { key: "settings", label: "⚙️ Настройки аккаунта", content: <ProfileSettings /> },
     { key: "support", label: "🎧 Поддержка", content: <p>Здесь вы найдете ответы на часто задаваемые вопросы.</p> },
     { key: "billing", label: "💳 Управление платежами", content: <p>Здесь будет отображаться информация о вашем биллинге.</p> },
@@ -39,39 +40,31 @@ export function ProfileContent() {
     return (
         <ProfileLayout>
             <section className="profile-content">
-                <div className="profile-header">
-                    {activeSection === null ? (
-                        <article>
-                            <Skeleton variant="text" width="80%" height={50} />
-                            <Skeleton variant="text" width="90%" height={50} />
-                            <Skeleton variant="text" width="90%" height={50} />
-                            <Skeleton variant="text" width="90%" height={50} />
-                        </article>
-                    ) : (
-                        <ProfileHeader
-                            activeSection={activeSection ?? "history"}
-                            handleSectionClick={handleSectionClick}
-                        />
-                    )}
-                </div>
-                <div className="profile-grid">
-                    {activeSection ? (
-                        <div className="grid-item">
-                            <article>
-                                {SECTIONS.find(({ key }) => key === activeSection)?.content}
-                            </article>
-                        </div>
-                    ) : (
-                        // Скелет для содержимого
-                        <div className="grid-item skeleton">
-                            <article>
-                                <Skeleton variant="text" width="80%" height={30} />
-                                <Skeleton variant="text" width="60%" height={30} />
-                                <Skeleton variant="rectangular" width="100%" height={200} />
-                            </article>
-                        </div>
-                    )}
-                </div>
+                {activeSection === null ? (
+                    <article className="profile-header">
+                        <Skeleton variant="text" width="80%" height={50} />
+                        <Skeleton variant="text" width="90%" height={50} />
+                        <Skeleton variant="text" width="90%" height={50} />
+                        <Skeleton variant="text" width="90%" height={50} />
+                    </article>
+                ) : (
+                    <ProfileHeader
+                        activeSection={activeSection ?? "history"}
+                        handleSectionClick={handleSectionClick}
+                    />
+                )}
+                {activeSection ? (
+                    <>
+                        {SECTIONS.find(({ key }) => key === activeSection)?.content}
+                    </>
+                ) : (
+                    // Скелет для содержимого
+                    <article>
+                        <Skeleton variant="text" width="80%" height={30} />
+                        <Skeleton variant="text" width="60%" height={30} />
+                        <Skeleton variant="rectangular" width="100%" height={200} />
+                    </article>
+                )}
             </section>
         </ProfileLayout>
     );

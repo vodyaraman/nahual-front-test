@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGetUserProfileQuery } from '@/state/profile/profileApi';
+import { Alert, Snackbar } from '@mui/material';
 
 interface ProfileLayoutProps {
   children: React.ReactNode;
@@ -33,8 +34,15 @@ const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
   }, [error, isLoading, refetch]);
 
   if (error) {
-    return <div>Произошла ошибка при загрузке профиля. Попробуйте позже.</div>;
-  }
+    window.location.href="/auth?mode=login"
+    return (
+      <Snackbar>
+        <Alert severity="error">
+          Произошла ошибка при загрузке профиля. Попробуйте позже.
+        </Alert>
+      </Snackbar>
+    )
+  };
 
   return <>{children}</>;
 };

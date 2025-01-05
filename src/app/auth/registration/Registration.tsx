@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useRegisterMutation } from '@/state/auth/authApi';
-import { setTokens } from '@/state/auth/authSlice';
+import { setAccessToken, setRefreshToken } from '@/state/auth/authSlice';
 import StyledButton from '@/components/common/StyledButton';
 import StyledTypography from '@/components/common/StyledTypography';
 
@@ -25,7 +25,9 @@ export default function RegisterForm() {
     try {
       const { username, email, password } = data;
       const response = await registerUser({ username, email, password }).unwrap();
-      dispatch(setTokens(response));
+      dispatch(setAccessToken(response.accessToken));
+      dispatch(setRefreshToken(response.refreshToken));
+
       window.location.href = '/profile';
     } catch (err) {
       console.error('Registration failed', err);
@@ -50,7 +52,7 @@ export default function RegisterForm() {
             id="username"
             type="text"
             placeholder=" "
-            {...register("username", { 
+            {...register("username", {
               required: "Username is required",
               minLength: { value: 3, message: "Username must be at least 3 characters" },
               maxLength: { value: 20, message: "Username cannot exceed 20 characters" }
@@ -70,7 +72,7 @@ export default function RegisterForm() {
             id="email"
             type="email"
             placeholder=" "
-            {...register("email", { 
+            {...register("email", {
               required: "Email is required",
               pattern: {
                 value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
@@ -92,7 +94,7 @@ export default function RegisterForm() {
             id="password"
             type="password"
             placeholder=" "
-            {...register("password", { 
+            {...register("password", {
               required: "Password is required",
               minLength: { value: 8, message: "Password must be at least 8 characters" },
               maxLength: { value: 32, message: "Password cannot exceed 32 characters" }

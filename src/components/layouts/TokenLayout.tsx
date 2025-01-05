@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/state/store';
 import { useRefreshTokenMutation } from '@/state/auth/authApi';
-import { setTokens, logout } from '@/state/auth/authSlice';
+import { setAccessToken, setRefreshToken, logout } from '@/state/auth/authSlice';
 import { safeLocalStorage } from '@/helpers/safeLocalStorage';
 import { Box, Typography } from '@mui/material';
 
@@ -25,18 +25,19 @@ const TokenLayout: React.FC<TokenLayoutProps> = ({ children }) => {
     const refreshToken = safeLocalStorage.getItem('refreshToken');
 
     if (accessToken && refreshToken) {
-      dispatch(setTokens({ accessToken, refreshToken }));
+      dispatch(setAccessToken(accessToken));
+      dispatch(setRefreshToken(refreshToken));
     }
   }, [dispatch]);
 
   useEffect(() => {
-    const refreshToken = refreshTokenFromState || safeLocalStorage.getItem('refreshToken');
+    const refreshToken = safeLocalStorage.getItem('refreshToken');
     if (!refreshToken) return;
 
     const sendRefreshRequest = async () => {
       try {
         const result = await refreshAccessToken({ refreshToken }).unwrap();
-        dispatch(setTokens(result));
+        dispatch(setAccessToken(result.accessToken));
         setErrorMessage(null);
         setRetryInterval(1 * 60 * 1000); // Сбрасываем интервал на 5 минут
       } catch (error: unknown) {
@@ -84,6 +85,7 @@ const TokenLayout: React.FC<TokenLayoutProps> = ({ children }) => {
             padding: '10px 20px',
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+            zIndex: '999'
           }}
         >
           <Typography variant="body2">{errorMessage}</Typography>

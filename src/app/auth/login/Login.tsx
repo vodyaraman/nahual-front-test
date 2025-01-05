@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '@/state/auth/authApi';
-import { setTokens } from '@/state/auth/authSlice';
+import { setAccessToken, setRefreshToken } from '@/state/auth/authSlice';
 import StyledButton from '@/components/common/StyledButton';
 import StyledTypography from '@/components/common/StyledTypography';
 
@@ -21,7 +21,8 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormInputs) => {
     try {
       const response = await login({ username: '', email: data.email, password: data.password }).unwrap();
-      dispatch(setTokens(response));
+      dispatch(setAccessToken(response.accessToken));
+      dispatch(setRefreshToken(response.refreshToken));
 
       window.location.href = '/profile';
     } catch (err) {

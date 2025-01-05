@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 import StyledTypography from "@/components/common/StyledTypography";
 import { SECTIONS } from "./ProfileContent";
 
@@ -8,6 +10,8 @@ interface ProfileHeaderProps {
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ activeSection, handleSectionClick }) => {
+    const username = useSelector((state: RootState) => state.profile.user?.username);
+
     const getIndicatorStyle = () => {
         const offsets = {
             history: "0px",
@@ -21,11 +25,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ activeSection, handleSect
     return (
         <article className="profile-header">
             <StyledTypography variant="body1" className="profile-title">
-                Добро пожаловать,<br /> <b>ИМЯ ФАМИЛИЯ Имя</b>
+                Добро пожаловать,<br /> <b>{username || "Гость"}</b>
             </StyledTypography>
             <nav className="profile-header-navigation">
                 <ul style={{ position: "relative" }}>
-                    {/* Индикатор */}
                     <div className="indicator" style={getIndicatorStyle()} />
                     {SECTIONS.map(({ key, label }) => (
                         <li key={key}>

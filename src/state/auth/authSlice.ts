@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LoginPayload } from '../../interfaces/auth';
 import { safeLocalStorage } from '@/helpers/safeLocalStorage';
 
 interface AuthState {
@@ -18,24 +17,24 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setTokens: (state, action: PayloadAction<LoginPayload>) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-
-      safeLocalStorage.setItem('accessToken', action.payload.accessToken);
-      safeLocalStorage.setItem('refreshToken', action.payload.refreshToken);
+    setAccessToken: (state, action: PayloadAction<string>) => {
+      state.accessToken = action.payload;
+      safeLocalStorage.setItem('accessToken', action.payload);
+    },
+    setRefreshToken: (state, action: PayloadAction<string>) => {
+      state.refreshToken = action.payload;
+      safeLocalStorage.setItem('refreshToken', action.payload);
     },
     logout: (state) => {
       state.accessToken = null;
       state.refreshToken = null;
       state.isAuthenticated = false;
-
       safeLocalStorage.removeItem('accessToken');
       safeLocalStorage.removeItem('refreshToken');
     },
   },
 });
 
-
-export const { setTokens, logout } = authSlice.actions;
+export const { setAccessToken, setRefreshToken, logout } = authSlice.actions;
 export default authSlice.reducer;
+

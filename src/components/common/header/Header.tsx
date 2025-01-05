@@ -15,19 +15,25 @@ export default function Header() {
     const [mode, setMode] = useState<"default" | "register" | "login" | null>(null);
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
-    const refreshToken = useSelector((state: RootState) => state.user.refreshToken);
+    const accessToken = useSelector((state: RootState) => state.user.accessToken);
 
     useEffect(() => {
         const modeParam = searchParams?.get("mode") as "register" | "login" | null;
         setMode(modeParam || "default");
     }, [searchParams]);
 
-    const handleLogout = () => dispatch(logout());
+    const handleLogout = () => {
+        dispatch(logout());
+        window.location.href="/auth?mode=login"
+    };
 
     const renderAuthButtons = () => {
-        if (refreshToken) {
+        if (accessToken) {
             return (
                 <>
+                    <StyledButton variant="contained" color="secondary" href="/main" sx={{ color: '#000' }}>
+                        ▶️
+                    </StyledButton>
                     <StyledButton variant="contained" color="secondary" href="/profile" sx={{ color: '#000' }}>
                         Профиль
                     </StyledButton>

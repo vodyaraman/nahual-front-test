@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ImportUserFromServer } from '@/interfaces/auth';
+import { safeLocalStorage } from '@/helpers/safeLocalStorage';
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://89.111.170.87:8085/',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('accessToken');
+      const token = safeLocalStorage.getItem('accessToken');
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }

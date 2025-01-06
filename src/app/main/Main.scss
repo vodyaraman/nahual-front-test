@@ -4,5 +4,33 @@ main {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .timeline-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .current-day {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .main-content-canvas {
+            display: flex;
+            width: 100%;
+            padding: 0 20px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
     }
-} 
+}

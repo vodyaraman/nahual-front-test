@@ -3,8 +3,10 @@ import { useRef, useEffect, useState } from 'react';
 
 export default function Timeline() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [scrollOffset, setScrollOffset] = useState(0); // Смещение для прокрутки
+    const [scrollOffset, setScrollOffset] = useState(15); // Смещение для прокрутки
     const dayWidth = 40; // Ширина одного дня в пикселях
+    const canvasWidth = 600; // Фиксированная ширина canvas
+    const canvasHeight = 200; // Фиксированная высота canvas
     const [centerDate, setCenterDate] = useState(new Date()); // Центр временной шкалы
 
     const isDragging = useRef(false); // Флаг для проверки, выполняется ли drag (мышь или свайп)
@@ -17,8 +19,8 @@ export default function Timeline() {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        canvas.width = window.innerWidth;
-        canvas.height = 200;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
 
         const today = new Date();
         const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -28,19 +30,19 @@ export default function Timeline() {
 
             // Цвета для тёмной темы
             const backgroundColor = '#000';
-            const textColor = '#fff';
+            const textColor = '#000';
             const lineColor = '#555';
 
             // Фон холста
             ctx.fillStyle = backgroundColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            const visibleDays = Math.ceil(canvas.width / dayWidth + 2); // Количество дней на экране
+            const visibleDays = Math.ceil(canvasWidth / dayWidth + 2); // Количество дней на экране
             const startIndex = Math.floor(scrollOffset / dayWidth); // Начальный индекс дня
             const startDay = new Date(startDate);
-            startDay.setDate(startDay.getDate() + startIndex - 4); // Первая видимая дата
+            startDay.setDate(startDay.getDate() + startIndex - 6); // Первая видимая дата
 
-            const centerIndex = Math.floor(canvas.width / 1.8 / dayWidth); // Индекс дня в центре экрана
+            const centerIndex = Math.floor(canvasWidth / 2 / dayWidth); // Индекс дня в центре экрана
             const centerDay = new Date(startDay);
             centerDay.setDate(startDay.getDate() + centerIndex);
 
@@ -50,103 +52,144 @@ export default function Timeline() {
             // Основная линия
             ctx.beginPath();
             ctx.moveTo(0, 110); // Линия по центру холста
-            ctx.lineTo(canvas.width, 110);
+            ctx.lineTo(canvasWidth, 110);
             ctx.strokeStyle = lineColor;
             ctx.lineWidth = 2;
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.moveTo(canvas.width / 2, 120); // Линия по центру холста
-            ctx.lineTo(canvas.width / 2, 100);
+            ctx.moveTo(canvasWidth / 2, 120); // Линия по центру холста
+            ctx.lineTo(canvasWidth / 2, 100);
             ctx.strokeStyle = lineColor;
             ctx.lineWidth = 2;
-            ctx.stroke()
+            ctx.stroke();
 
             // Отрисовка дат
             for (let i = 0; i < visibleDays; i++) {
                 const currentDay = new Date(startDay);
                 currentDay.setDate(startDay.getDate() + i); // Текущая дата
-            
-                const x = i * dayWidth - (scrollOffset % dayWidth) + (-18); // Координата x
+
+                //const x = i * dayWidth + 20;
+                const x = i * dayWidth + 35 - (scrollOffset % dayWidth); // Координата x
                 const y = 75; // Координата y (центр квадрата по вертикали)
-            
+
                 const rectWidth = 30; // Ширина квадрата
                 const rectHeight = 25; // Высота квадрата
                 const cornerRadius = 5; // Радиус закругления углов
-            
+
                 // Рисуем закругленный квадрат
                 ctx.beginPath();
-                ctx.moveTo(x - rectWidth / 2 + cornerRadius, y - rectHeight / 2); // Левый верхний угол (с учетом закругления)
-                ctx.lineTo(x + rectWidth / 2 - cornerRadius, y - rectHeight / 2); // Верхняя линия
-                ctx.quadraticCurveTo(x + rectWidth / 2, y - rectHeight / 2, x + rectWidth / 2, y - rectHeight / 2 + cornerRadius); // Правый верхний угол
-                ctx.lineTo(x + rectWidth / 2, y + rectHeight / 2 - cornerRadius); // Правая линия
-                ctx.quadraticCurveTo(x + rectWidth / 2, y + rectHeight / 2, x + rectWidth / 2 - cornerRadius, y + rectHeight / 2); // Правый нижний угол
-                ctx.lineTo(x - rectWidth / 2 + cornerRadius, y + rectHeight / 2); // Нижняя линия
-                ctx.quadraticCurveTo(x - rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y + rectHeight / 2 - cornerRadius); // Левый нижний угол
-                ctx.lineTo(x - rectWidth / 2, y - rectHeight / 2 + cornerRadius); // Левая линия
-                ctx.quadraticCurveTo(x - rectWidth / 2, y - rectHeight / 2, x - rectWidth / 2 + cornerRadius, y - rectHeight / 2); // Левый верхний угол
+                ctx.moveTo(x - rectWidth / 2 + cornerRadius, y - rectHeight / 2);
+                ctx.lineTo(x + rectWidth / 2 - cornerRadius, y - rectHeight / 2);
+                ctx.quadraticCurveTo(x + rectWidth / 2, y - rectHeight / 2, x + rectWidth / 2, y - rectHeight / 2 + cornerRadius);
+                ctx.lineTo(x + rectWidth / 2, y + rectHeight / 2 - cornerRadius);
+                ctx.quadraticCurveTo(x + rectWidth / 2, y + rectHeight / 2, x + rectWidth / 2 - cornerRadius, y + rectHeight / 2);
+                ctx.lineTo(x - rectWidth / 2 + cornerRadius, y + rectHeight / 2);
+                ctx.quadraticCurveTo(x - rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y + rectHeight / 2 - cornerRadius);
+                ctx.lineTo(x - rectWidth / 2, y - rectHeight / 2 + cornerRadius);
+                ctx.quadraticCurveTo(x - rectWidth / 2, y - rectHeight / 2, x - rectWidth / 2 + cornerRadius, y - rectHeight / 2);
                 ctx.closePath();
-            
+
                 // Заливаем квадрат цветом
-                ctx.fillStyle = '#333'; // Цвет фона квадрата
+                ctx.fillStyle = '#fff';
                 ctx.fill();
-            
+
                 // Отрисовка текста
                 ctx.fillStyle = textColor;
-                ctx.font = '14px Roboto';
+                ctx.font = '16px Roboto';
                 ctx.textAlign = 'center';
                 ctx.fillText(`${currentDay.getDate()}`, x, 80);
-            }            
+            }
         };
 
-        drawTimeline();
+        const drawWeeks = () => {
+            // Вычисляем начальную дату недели
+            const weekWidth = dayWidth * 7;
+            const startIndex = Math.floor(scrollOffset / weekWidth);
+            const startWeekDate = new Date(startDate);
+            startWeekDate.setDate(startWeekDate.getDate() + startIndex * 7);
+        
+            const visibleWeeks = Math.ceil(canvasWidth / weekWidth) + 1;
+        
+            for (let i = 0; i < visibleWeeks; i++) {
+                const currentWeekStart = new Date(startWeekDate);
+                currentWeekStart.setDate(startWeekDate.getDate() + i * 7);
+        
+                const xStart = i * weekWidth - (scrollOffset % weekWidth) - 55;
+                const yBase = 40;
 
-        // --- Общая логика начала drag/swipe ---
+                // Подписываем номер недели и год
+                const weekNumber = Math.ceil(
+                    (currentWeekStart.getTime() - new Date(currentWeekStart.getFullYear(), 0, 1).getTime()) / 
+                    (7 * 24 * 60 * 60 * 1000)
+                );
+        
+                ctx.fillStyle = '#fff';
+                ctx.font = '14px Roboto';
+                ctx.textAlign = 'center';
+                ctx.fillText(
+                    `Неделя ${weekNumber}`,
+                    xStart + weekWidth / 2,
+                    yBase - 20
+                );
+        
+                // Рисуем фигурные скобки
+                ctx.beginPath();
+                ctx.moveTo(xStart + 10, yBase); // Начало левой стороны
+                ctx.lineTo(xStart + 250, yBase);
+                ctx.closePath();
+        
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        };      
+
+        drawTimeline();
+        drawWeeks();
+
         const startDrag = (startX: number) => {
             isDragging.current = true;
-            dragStartX.current = startX; // Сохраняем начальную позицию
+            dragStartX.current = startX;
         };
 
         const moveDrag = (currentX: number) => {
-            if (!isDragging.current) return; // Если не drag, выходим
-
-            const deltaX = dragStartX.current - currentX; // Разница между начальной позицией и текущей
-            dragStartX.current = currentX; // Обновляем начальную точку для плавного drag/swipe
-
+            if (!isDragging.current) return;
+            const deltaX = dragStartX.current - currentX;
+            dragStartX.current = currentX;
             setScrollOffset((prev) => {
                 const newOffset = prev + deltaX;
-                return Math.max(newOffset, 0); // Ограничиваем прокрутку назад
+                if (newOffset < 15) return 15; // Запрет на перетаскивание левее 28
+                return newOffset;
             });
         };
+        
 
         const stopDrag = () => {
-            isDragging.current = false; // Завершаем drag/swipe
+            isDragging.current = false;
         };
 
-        // --- Обработка мыши ---
         const handleMouseDown = (e: MouseEvent) => startDrag(e.clientX);
         const handleMouseMove = (e: MouseEvent) => moveDrag(e.clientX);
         const handleMouseUp = () => stopDrag();
 
-        // --- Обработка touch ---
         const handleTouchStart = (e: TouchEvent) => startDrag(e.touches[0].clientX);
         const handleTouchMove = (e: TouchEvent) => moveDrag(e.touches[0].clientX);
         const handleTouchEnd = () => stopDrag();
 
-        // --- Прокрутка колесом ---
         const handleWheel = (e: WheelEvent) => {
-            const deltaY = e.deltaY;
             setScrollOffset((prev) => {
-                const newOffset = prev + deltaY;
-                return Math.max(newOffset, 0);
+                const newOffset = prev + e.deltaY;
+                if (newOffset < 15) return 15; // Запрет прокрутки левее 28
+                return newOffset;
             });
         };
+        
 
-        // Добавляем обработчики событий
         canvas.addEventListener('mousedown', handleMouseDown);
         canvas.addEventListener('mousemove', handleMouseMove);
         canvas.addEventListener('mouseup', handleMouseUp);
-        canvas.addEventListener('mouseleave', handleMouseUp); // Завершаем drag, если мышь покинула холст
+        canvas.addEventListener('mouseleave', handleMouseUp);
 
         canvas.addEventListener('touchstart', handleTouchStart, { passive: true });
         canvas.addEventListener('touchmove', handleTouchMove, { passive: true });
@@ -155,7 +198,6 @@ export default function Timeline() {
         canvas.addEventListener('wheel', handleWheel);
 
         return () => {
-            // Удаляем обработчики событий
             canvas.removeEventListener('mousedown', handleMouseDown);
             canvas.removeEventListener('mousemove', handleMouseMove);
             canvas.removeEventListener('mouseup', handleMouseUp);
@@ -175,7 +217,7 @@ export default function Timeline() {
                 Текущая дата: {centerDate.toDateString()}
             </div>
             <div className="timeline-header">
-                {`${centerDate.toLocaleString('default', { month: 'long' })} ${centerDate.getFullYear()}`}
+                {`${centerDate.getFullYear()} ${centerDate.toLocaleString('default', { month: 'long' }).toUpperCase()}`}
             </div>
             <canvas ref={canvasRef} className="main-content-canvas" />
         </div>

@@ -1,4 +1,5 @@
 'use client';
+import StyledButton from '@/components/common/StyledButton';
 import { useRef, useEffect, useState } from 'react';
 
 export default function Timeline() {
@@ -6,7 +7,7 @@ export default function Timeline() {
     const [scrollOffset, setScrollOffset] = useState(15); // Смещение для прокрутки
     const dayWidth = 40; // Ширина одного дня в пикселях
     const canvasWidth = 600; // Фиксированная ширина canvas
-    const canvasHeight = 200; // Фиксированная высота canvas
+    const canvasHeight = 130; // Фиксированная высота canvas
     const [centerDate, setCenterDate] = useState(new Date()); // Центр временной шкалы
 
     const isDragging = useRef(false); // Флаг для проверки, выполняется ли drag (мышь или свайп)
@@ -21,6 +22,7 @@ export default function Timeline() {
 
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
+        const gradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
 
         const today = new Date();
         const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -29,13 +31,22 @@ export default function Timeline() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Цвета для тёмной темы
-            const backgroundColor = '#000';
-            const textColor = '#000';
+            gradient.addColorStop(0, "rgba(0, 0, 0, 0.2)");
+            gradient.addColorStop(0.1, "rgba(0, 0, 0, 0.3)");
+            gradient.addColorStop(0.9, "rgba(0, 0, 0, 0.3)");
+            gradient.addColorStop(1, "rgba(0, 0, 0, 0.2)");
+
+            const textColor = '#fff';
             const lineColor = '#555';
+            const arrorColor = '#fff';
 
             // Фон холста
-            ctx.fillStyle = backgroundColor;
+            ctx.globalCompositeOperation = "destination-in";
+
+            ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.globalCompositeOperation = "source-over";
 
             const visibleDays = Math.ceil(canvasWidth / dayWidth + 2); // Количество дней на экране
             const startIndex = Math.floor(scrollOffset / dayWidth); // Начальный индекс дня
@@ -52,15 +63,26 @@ export default function Timeline() {
             // Основная линия
             ctx.beginPath();
             ctx.moveTo(0, 110); // Линия по центру холста
+            ctx.lineTo(canvasWidth / 2 - 10, 110);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Основная линия
+            ctx.beginPath();
+            ctx.moveTo(canvasWidth / 2 + 10, 110); // Линия по центру холста
             ctx.lineTo(canvasWidth, 110);
             ctx.strokeStyle = lineColor;
             ctx.lineWidth = 2;
             ctx.stroke();
 
+            // Линия по центру холста
             ctx.beginPath();
-            ctx.moveTo(canvasWidth / 2, 120); // Линия по центру холста
-            ctx.lineTo(canvasWidth / 2, 100);
-            ctx.strokeStyle = lineColor;
+            ctx.moveTo(canvasWidth / 2, 100);
+            ctx.lineTo(canvasWidth / 2 - 10, 120);
+            ctx.lineTo(canvasWidth / 2 + 10, 120);
+            ctx.lineTo(canvas.width / 2, 100);
+            ctx.strokeStyle = arrorColor;
             ctx.lineWidth = 2;
             ctx.stroke();
 
@@ -91,12 +113,12 @@ export default function Timeline() {
                 ctx.closePath();
 
                 // Заливаем квадрат цветом
-                ctx.fillStyle = '#fff';
+                ctx.fillStyle = '#000';
                 ctx.fill();
 
                 // Отрисовка текста
                 ctx.fillStyle = textColor;
-                ctx.font = '16px Roboto';
+                ctx.font = '600 16px Roboto';
                 ctx.textAlign = 'center';
                 ctx.fillText(`${currentDay.getDate()}`, x, 80);
             }
@@ -108,22 +130,22 @@ export default function Timeline() {
             const startIndex = Math.floor(scrollOffset / weekWidth);
             const startWeekDate = new Date(startDate);
             startWeekDate.setDate(startWeekDate.getDate() + startIndex * 7);
-        
+
             const visibleWeeks = Math.ceil(canvasWidth / weekWidth) + 1;
-        
+
             for (let i = 0; i < visibleWeeks; i++) {
                 const currentWeekStart = new Date(startWeekDate);
                 currentWeekStart.setDate(startWeekDate.getDate() + i * 7);
-        
+
                 const xStart = i * weekWidth - (scrollOffset % weekWidth) - 55;
                 const yBase = 40;
 
                 // Подписываем номер недели и год
                 const weekNumber = Math.ceil(
-                    (currentWeekStart.getTime() - new Date(currentWeekStart.getFullYear(), 0, 1).getTime()) / 
+                    (currentWeekStart.getTime() - new Date(currentWeekStart.getFullYear(), 0, 1).getTime()) /
                     (7 * 24 * 60 * 60 * 1000)
                 );
-        
+
                 ctx.fillStyle = '#fff';
                 ctx.font = '14px Roboto';
                 ctx.textAlign = 'center';
@@ -132,18 +154,18 @@ export default function Timeline() {
                     xStart + weekWidth / 2,
                     yBase - 20
                 );
-        
+
                 // Рисуем фигурные скобки
                 ctx.beginPath();
                 ctx.moveTo(xStart + 10, yBase); // Начало левой стороны
                 ctx.lineTo(xStart + 250, yBase);
                 ctx.closePath();
-        
+
                 ctx.strokeStyle = '#999';
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
-        };      
+        };
 
         drawTimeline();
         drawWeeks();
@@ -163,7 +185,7 @@ export default function Timeline() {
                 return newOffset;
             });
         };
-        
+
 
         const stopDrag = () => {
             isDragging.current = false;
@@ -184,7 +206,7 @@ export default function Timeline() {
                 return newOffset;
             });
         };
-        
+
 
         canvas.addEventListener('mousedown', handleMouseDown);
         canvas.addEventListener('mousemove', handleMouseMove);
@@ -212,7 +234,7 @@ export default function Timeline() {
     }, [scrollOffset]);
 
     return (
-        <div className="main-container">
+        <div className='main-content-canvas-wrapper'>
             <div className="current-day">
                 Текущая дата: {centerDate.toDateString()}
             </div>
@@ -220,6 +242,9 @@ export default function Timeline() {
                 {`${centerDate.getFullYear()} ${centerDate.toLocaleString('default', { month: 'long' }).toUpperCase()}`}
             </div>
             <canvas ref={canvasRef} className="main-content-canvas" />
+            <StyledButton variant={'outlined'} color={'secondary'} sx={{className: 'timeline-date', width: '280px'}}>
+                Сделать предсказание на {centerDate.toDateString()}!
+            </StyledButton>
         </div>
     );
 }

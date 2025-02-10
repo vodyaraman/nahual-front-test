@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 
 export default function LandingContent() {
     const [offset,setOffset] = useState(0);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
         function handleResize() {

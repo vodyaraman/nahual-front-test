@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import Skeleton from '@mui/material/Skeleton';
 import './landing.scss';
-import "./profile/responsive.scss"
+import "../styles/responsive.scss"
 
 // Компонент для отображения скелетона
 const LoadingSkeleton = ({ height }: { height: string | number }) => (

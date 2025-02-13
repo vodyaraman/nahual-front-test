@@ -76,6 +76,7 @@
     transform: translateY(0);
   }
 }
+
 @mixin page-background($url) {
   min-height: 100vh;
   background-image:url(#{$url});
@@ -83,13 +84,22 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
 @mixin blocks-content {
   gap: 0.5rem;
   width: 100%;
   height: calc(90vh - 3rem);
 
 }
+
 @mixin padding-kit {
-  padding: 1rem 2rem;
+  padding: 2rem;
   gap: 0.5rem;
+}
+
+@mixin background-layout {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
 }

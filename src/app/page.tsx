@@ -42,6 +42,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <main className="main page-background">
+      <div className='blured'/>
       <DynamicHeader />
       <DynamicContent />
     </main>

@@ -4,20 +4,24 @@
     @include flexbox(column);
     align-items: flex-start;
     justify-content: flex-start;
+    overflow-y: auto;
     min-height: 100vh;
     &.page-background {
-      @include page-background('/background.png')
+      @include page-background('/background.png');
+    }
+
+    .blured {
+      @include background-layout();
+      backdrop-filter: blur(8px);
     }
 
     section {
-      &.landing-content {
+      &.landing-content, &.hero, &.pricing {
         @include flexbox(row);
         @include full-parent;
         @include padding-kit;
         min-height: calc(100vh - 5rem);
         align-items: flex-start;
-        overflow-y: auto;
-        backdrop-filter: blur(8px);
   
         .card-grid {
           @include blocks-content;
@@ -31,6 +35,7 @@
             @include blocks-content;
             position: relative;
             display: flex;
+            transition: transform 0.1s linear, opacity 0.2s ease-out
         }
       }
     }

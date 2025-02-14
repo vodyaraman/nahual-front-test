@@ -54,6 +54,8 @@
   background-color: transparent;
   width: 100%;
   text-wrap: wrap;
+  //text-shadow: #fc0 1px 0 10px; ахуенный эффект
+  text-shadow: rgba(32, 31, 27, 0.452) 1px 0 10px;
 }
 
 @mixin scroll-button {

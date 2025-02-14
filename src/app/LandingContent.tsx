@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollButton from "@/components/common/ScrollButton";
-import StyledTypography from "@/components/common/StyledTypography";
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
 import { contentData } from "@/data/contentData";
+import { CardHand } from "@/components/common/pricing/CardHand";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,7 +84,7 @@ export default function LandingContent() {
             УЗНАЙ БУДУЩЕЕ, СОКРЫТОЕ В <span>ЗВЁЗДНОМ НЕБЕ!</span>
           </h1>
           <ScrollButton target={".landing-content"}>
-            познакомиться
+            explore
           </ScrollButton>
         </article>
       </section>
@@ -106,12 +106,12 @@ export default function LandingContent() {
 
       {/* 🚀 PRICING */}
       <section className="pricing">
-        <StyledTypography>ПЛАТИ БАБКИ!!</StyledTypography>
+        <CardHand/>
       </section>
 
       {/* 🚀 FOOTER */}
       <footer className="footer">
-        <StyledTypography>ПЛАТИ БАБКИ!!</StyledTypography>
+
       </footer>
     </>
   );

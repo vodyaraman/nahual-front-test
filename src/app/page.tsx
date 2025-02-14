@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Skeleton from '@mui/material/Skeleton';
 import './landing.scss';
 import "../styles/responsive.scss"
+import LenisLayout from '@/components/layouts/LenisLayout';
 
 // Компонент для отображения скелетона
 const LoadingSkeleton = ({ height }: { height: string | number }) => (
@@ -41,10 +42,10 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="main page-background">
-      <div className='blured'/>
-      <DynamicHeader />
-      <DynamicContent />
-    </main>
+    <LenisLayout mainClassName="main page-background">
+        <div className='blured' />
+        <DynamicHeader />
+        <DynamicContent />
+    </LenisLayout>
   );
 }

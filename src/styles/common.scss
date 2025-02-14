@@ -1,3 +1,9 @@
+
+@mixin primary-color-scheme {
+  background-color: transparent;
+  color: azure;
+}
+
 @mixin flexbox($direction) {
   position: relative;
   display: flex;
@@ -39,7 +45,7 @@
 
 @mixin text-header($font-size, $text-align, $font-weight) {
   font-family: 'Unbounded', sans-serif;
-  display: block;
+  @include flexbox(column);
   @include primary-color-scheme();
   line-height: $font-size;
   font-size: $font-size;
@@ -47,33 +53,30 @@
   font-weight: $font-weight;
   background-color: transparent;
   width: 100%;
+  text-wrap: wrap;
 }
 
 @mixin scroll-button {
+  @include no-def-styles();
+  z-index: 10;
   position: absolute;
-  bottom: 20px;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
+  bottom: 2.5rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
   background-color: #4949492c;
   color: #494949de;
   font-family: "Oswald", sans-serif;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 1.25rem;
   backdrop-filter: blur(1px);
   transition: all 0.5s ease;
-  transform: translateY(20vh);
   filter: brightness(1.2);
 
   &:hover {
     filter: brightness(1);
     color: #ffffff;
-    font-size: 1.75rem;
-  }
-
-  &.active {
-    transform: translateY(0);
+    font-size: 1.5rem;
   }
 }
 
@@ -93,7 +96,7 @@
 }
 
 @mixin padding-kit {
-  padding: 2rem;
+  padding: 5rem 2rem;
   gap: 0.5rem;
 }
 

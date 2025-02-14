@@ -1,84 +1,117 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollButton from "@/components/common/ScrollButton";
 import StyledTypography from "@/components/common/StyledTypography";
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
 import { contentData } from "@/data/contentData";
-import { useEffect, useState } from "react";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingContent() {
-  const [offset, setOffset] = useState(0);
+  const landingRef = useRef<HTMLElement | null>(null);
   const [windowWidth, setWindowWidth] = useState(0);
 
+  // ✅ 1. Следим за шириной окна
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
       setWindowWidth(window.innerWidth);
-    }
+    };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // ✅ 2. Реализуем эффект параллакса между `hero` и `landing-content`
+  useEffect(() => {
+    if (!landingRef.current || !window.__lenis) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "center top",
+        scrub: true,
+        scroller: "main",
+        pin: true,
+        pinSpacing: false,
+      },
+    });
+
+    tl.to(".hero", {
+      yPercent: -50,
+      opacity: 0,
+      ease: "none",
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  }, []);
+
+  // ✅ 3. Двигаем `.main-content`, если ширина в диапазоне 580px - 1024px, используя Lenis
   useEffect(() => {
     if (windowWidth >= 580 && windowWidth <= 1024) {
-      const landingContent = document.querySelector(".landing-content")
-      if (!landingContent) return
-      const HandleScroll = () => {
-        setOffset(landingContent.scrollTop)
+      const mainContent = document.querySelector(".main-content");
+      if (!mainContent) return;
+  
+      const handleScroll = () => {
+        mainContent.classList.add("sticky");
       };
-      landingContent.addEventListener("scroll", HandleScroll);
-      return () => landingContent.removeEventListener("scroll", HandleScroll)
-    }
-    else {
-      setOffset(0)
+  
+      window.__lenis?.on("scroll", handleScroll);
+      return () => {
+        mainContent.classList.remove("sticky");
+        window.__lenis?.off("scroll", handleScroll);
+      };
+    } else {
+      document.querySelector(".main-content")?.classList.remove("sticky");
     }
   }, [windowWidth]);
-
+  
 
   return (
     <>
+      {/* 🚀 HERO */}
       <section className="hero">
-        <StyledTypography>
-          ПРИВЕТСТВУЮ!
-        </StyledTypography>
+        <article className="hero__content">
+          <h1 className="hero__title">
+            УЗНАЙ БУДУЩЕЕ, СОКРЫТОЕ В <span>ЗВЁЗДНОМ НЕБЕ!</span>
+          </h1>
+          <ScrollButton target={".landing-content"}>
+            познакомиться
+          </ScrollButton>
+        </article>
       </section>
-      <section className="landing-content">
-        {/* Компонент Wheel */}
-        <div className="main-content" style={{
-          transform: `translateY(${offset}px)`,
-        }}>
-          <Card
-            key={0}
-            head={contentData[0].head}
-            body={contentData[0].body}
-          >
+
+      {/* 🚀 LANDING CONTENT */}
+      <section ref={landingRef} className="landing-content">
+        <div className="main-content">
+          <Card key={0} head={contentData[0].head} body={contentData[0].body}>
             <Wheel />
           </Card>
-
         </div>
 
-        {/* Первый грид */}
         <div className="card-grid">
           {contentData.slice(1).map((card, index) => (
-            <Card
-              key={index + 1}
-              head={card.head}
-              body={card.body}
-            />
+            <Card key={index + 1} head={card.head} body={card.body} />
           ))}
         </div>
       </section>
+
+      {/* 🚀 PRICING */}
       <section className="pricing">
-        <StyledTypography>
-          ПЛАТИ БАБКИ!!
-        </StyledTypography>
+        <StyledTypography>ПЛАТИ БАБКИ!!</StyledTypography>
       </section>
+
+      {/* 🚀 FOOTER */}
       <footer className="footer">
-        <StyledTypography>
-          ПЛАТИ БАБКИ!!
-        </StyledTypography>
+        <StyledTypography>ПЛАТИ БАБКИ!!</StyledTypography>
       </footer>
     </>
   );

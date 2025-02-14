@@ -1,42 +1,109 @@
-
 .main {
-    @include no-padding;
-    @include flexbox(column);
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-y: auto;
-    min-height: 100vh;
-    &.page-background {
-      @include page-background('/background.png');
-    }
+  @include no-padding;
+  @include flexbox(column);
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;
+  min-height: 100vh;
 
-    .blured {
-      @include background-layout();
-      backdrop-filter: blur(8px);
-    }
+  &.page-background {
+    @include page-background('/background.png');
+  }
 
-    section {
-      &.landing-content, &.hero, &.pricing {
-        @include flexbox(row);
-        @include full-parent;
-        @include padding-kit;
-        min-height: calc(100vh - 5rem);
-        align-items: flex-start;
-  
-        .card-grid {
-          @include blocks-content;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          min-height: 60vh;
-          max-height: 90vh;
-        }
+  .blured {
+    @include background-layout();
+    backdrop-filter: blur(8px);
+  }
 
-        .main-content {
-            @include blocks-content;
-            position: relative;
-            display: flex;
-            transition: transform 0.1s linear, opacity 0.2s ease-out
+  section {
+
+    &.landing-content,
+    &.hero,
+    &.pricing {
+      @include flexbox(row);
+      @include padding-kit;
+      align-items: flex-start;
+      height: auto;
+
+      .card-grid {
+        @include blocks-content;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        min-height: 60vh;
+        max-height: 90vh;
+      }
+
+      .main-content {
+        @include blocks-content;
+        position: relative;
+        display: flex;
+        transition: transform 0.1s linear, opacity 0.2s ease-out;
+
+        &.sticky {
+          position: sticky;
+          top: 5rem;
         }
       }
     }
   }
+
+  .hero {
+    height: 90vh;
+    width: 100vw;
+
+    &__content {
+      @include blocks-content();
+      @include flexbox(column);
+      padding: 0 0 15% 2rem;
+    }
+
+    &__title {
+      @include full-parent();
+      @include text-header(8.5rem, left, 600);
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      span {
+        background: url('/textures/landing-hero-h1.svg') no-repeat center;
+        background-size: cover;
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: #ffffff00;
+        -webkit-text-stroke: 1px #ffffffa6;
+
+        animation: rotate-bg 25s ease-in-out infinite;
+      }
+
+      @keyframes rotate-bg {
+        0% {
+          background-size: 120%;
+          background-position: 50% 50%
+      }
+      20% {
+          background-size: 150%;
+          background-position: 0 50%;
+      }    
+      40% {
+          background-size: 110%;
+          background-position: 20% 80%;
+      }
+      60% {
+          background-size: 160%;
+          background-position: 60% 10%;
+      }
+      80% {
+          background-size: 120%;
+          background-position: 40% 70%;
+      }    
+      100% {
+          background-size: 120%;
+          background-position: 50% 50%
+      }
+      }
+    }
+    .next-section {
+      @include scroll-button();
+    }
+  }
+}

@@ -59,11 +59,11 @@ export default function LandingContent() {
     if (windowWidth >= 580 && windowWidth <= 1024) {
       const mainContent = document.querySelector(".main-content");
       if (!mainContent) return;
-  
+
       const handleScroll = () => {
         mainContent.classList.add("sticky");
       };
-  
+
       window.__lenis?.on("scroll", handleScroll);
       return () => {
         mainContent.classList.remove("sticky");
@@ -73,7 +73,7 @@ export default function LandingContent() {
       document.querySelector(".main-content")?.classList.remove("sticky");
     }
   }, [windowWidth]);
-  
+
 
   return (
     <>
@@ -104,9 +104,52 @@ export default function LandingContent() {
         </div>
       </section>
 
+      {/* ABOUR WORK */}
+      <section className="about-work" id="about-work">
+        <h2 className="about-work__title">Как это работает?</h2>
+
+        <div className="about-work__steps">
+          <div className="step">
+            <figure className="step__desc step-1">
+              <img className="step-img" src="step-1.png" alt="step-1" />
+              <figcaption>
+                <p className="step__desc-title">
+                  Шаг первый
+                </p>
+                <p className="step__desc-text text-right">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="step">
+            <figure className="step__desc step-2">
+              <img className="step-img" src="step-2.png" alt="step-1" />
+              <figcaption>
+                <p className="step__desc-title">
+                  Шаг второй
+                </p>
+                <p className="step__desc-text text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="step">
+            <figure className="step__desc step-3">
+              <img className="step-img" src="step-3.png" alt="step-1" />
+              <figcaption>
+                <p className="step__desc-title">
+                  Шаг третий
+                </p>
+                <p className="step__desc-text text-right">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       {/* 🚀 PRICING */}
       <section className="pricing">
-        <CardHand/>
+        <CardHand />
       </section>
 
       {/* 🚀 FOOTER */}

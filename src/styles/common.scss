@@ -1,4 +1,3 @@
-
 @mixin primary-color-scheme {
   background-color: transparent;
   color: azure;
@@ -58,29 +57,30 @@
   text-shadow: rgba(32, 31, 27, 0.452) 1px 0 10px;
 }
 
-@mixin scroll-button {
-  @include no-def-styles();
-  z-index: 10;
-  position: absolute;
-  bottom: 2.5rem;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  background-color: #4949492c;
-  color: #494949de;
-  font-family: "Oswald", sans-serif;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  font-size: 1.25rem;
-  backdrop-filter: blur(1px);
-  transition: all 0.5s ease;
-  filter: brightness(1.2);
+// @mixin scroll-button {
+//   @include no-def-styles();
+//   z-index: 10;
+//   position: absolute;
+//   bottom: 2.5rem;
+//   padding: 1rem 2rem;
+//   border-radius: 10px;
+//   background-color: #4949492c;
+//   color: #494949de;
+//   font-family: "Oswald", sans-serif;
+//   letter-spacing: 0.5px;
+//   font-weight: 600;
+//   font-size: 1.25rem;
+//   backdrop-filter: blur(1px);
+//   transition: all 0.3s ease;
+//   filter: brightness(1.2);
+//   cursor: pointer;
 
-  &:hover {
-    filter: brightness(1);
-    color: #ffffff;
-    font-size: 1.5rem;
-  }
-}
+//   &:hover {
+//     filter: brightness(1);
+//     color: #ffffff;
+//     transform: scale(1.09);
+//   }
+// }
 
 @mixin page-background($url) {
   min-height: 100vh;

@@ -45,19 +45,5 @@
             font-size: 0.9rem;
             color: #f7f0d3;
         }
-
-        .card-link {
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-            text-decoration: none;
-            color: rgb(122, 122, 126);
-            font-weight: bold;
-            font-size: 0.85rem;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
     }
 }

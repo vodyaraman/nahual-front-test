@@ -9,7 +9,7 @@ import { aboutWorkData } from "@/data/aboutWorkData";
 
 // Компоненты
 import { CardHand } from "@/components/common/pricing/CardHand";
-import ScrollButton from "@/components/common/ScrollButton";
+import ScrollButton from "@/components/common/scroll-button/ScrollButton";
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
 import AboutWorkStep from "@/components/common/about-work-step/AboutWorkStep";
@@ -89,7 +89,7 @@ export default function LandingContent() {
           <h1 className="hero__title">
             УЗНАЙ БУДУЩЕЕ, СОКРЫТОЕ В <span>ЗВЁЗДНОМ НЕБЕ!</span>
           </h1>
-          <ScrollButton target={".landing-content"}>
+          <ScrollButton target={".landing-content"} type="btn">
             explore
           </ScrollButton>
         </article>
@@ -112,7 +112,7 @@ export default function LandingContent() {
 
       {/* ABOUR WORK */}
       <section className="about-work" id="about-work">
-        <h2 className="about-work__title">Как это работает?</h2>
+        <h2 className="about-work__title" id="about-work__title">Как это работает?</h2>
 
         <div className="about-work__steps">
           {

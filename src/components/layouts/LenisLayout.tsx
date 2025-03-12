@@ -27,19 +27,6 @@ const LenisLayout = ({ children, mainClassName }: { children: React.ReactNode, m
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-
-        lenis.scrollTo(targetId, {
-          offset: -100, // Пример отступа (под шапку)
-          duration: 1.2,
-          easing: (t) => Math.min(1, Math.max(0, t)), // Clamp t between 0 and 1
-        });
-      });
-    })
-
     return () => {
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
       lenis.destroy();

@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 
+// Компоненты
+import ScrollButton from "../scroll-button/ScrollButton";
+
 const TextCard = ({
   head = "",
   body = "",
@@ -97,7 +100,7 @@ const TextCard = ({
           {/* Добавляем children */}
           {children && <div className="card-children">{children}</div>}
 
-          <a className="card-link" href={link}>
+          <ScrollButton type="link" target={link} duration={3}>
             {isLoading ? (
               <Skeleton
                 variant="rectangular"
@@ -109,7 +112,7 @@ const TextCard = ({
             ) : (
               "Learn More"
             )}
-          </a>
+          </ScrollButton>
         </div>
       </article>
     </div>

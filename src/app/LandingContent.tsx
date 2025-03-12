@@ -2,11 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { contentData } from "@/data/contentData";
+
+// Компоненты
+import { CardHand } from "@/components/common/pricing/CardHand";
 import ScrollButton from "@/components/common/ScrollButton";
 import Card from "@/components/common/text-card/TextCard";
 import Wheel from "@/components/common/wheel/Wheel";
-import { contentData } from "@/data/contentData";
-import { CardHand } from "@/components/common/pricing/CardHand";
+import AboutWorkStep from "@/components/common/about-work-step/AboutWorkStep";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,41 +112,7 @@ export default function LandingContent() {
         <h2 className="about-work__title">Как это работает?</h2>
 
         <div className="about-work__steps">
-          <div className="step">
-            <figure className="step__desc step-1">
-              <img className="step-img" src="step-1.png" alt="step-1" />
-              <figcaption>
-                <p className="step__desc-title">
-                  Шаг первый
-                </p>
-                <p className="step__desc-text text-right">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="step">
-            <figure className="step__desc step-2">
-              <img className="step-img" src="step-2.png" alt="step-1" />
-              <figcaption>
-                <p className="step__desc-title">
-                  Шаг второй
-                </p>
-                <p className="step__desc-text text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="step">
-            <figure className="step__desc step-3">
-              <img className="step-img" src="step-3.png" alt="step-1" />
-              <figcaption>
-                <p className="step__desc-title">
-                  Шаг третий
-                </p>
-                <p className="step__desc-text text-right">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eum ducimus dolorem, molestiae consequatur, ipsum cum odit quo beatae repellat culpa sequi aspernatur aut nesciunt recusandae.</p>
-              </figcaption>
-            </figure>
-          </div>
+          <AboutWorkStep index={1} imgUrl="/step-1.png" title="Шаг первый" text={'Some text about how it works '} />
         </div>
       </section>
 

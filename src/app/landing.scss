@@ -19,7 +19,8 @@
 
     &.landing-content,
     &.hero,
-    &.pricing {
+    &.pricing,
+    &.about-work {
       @include flexbox(row);
       @include padding-kit;
       align-items: flex-start;
@@ -42,6 +43,86 @@
         &.sticky {
           position: sticky;
           top: 5rem;
+        }
+      }
+    }
+  }
+
+  section.about-work {
+    width: 100%;
+    display: block;
+    @include padding-kit();
+
+    & h2 {
+      font-size: 4.5rem;
+      text-align: right;
+    }
+
+    .about-work__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .step {
+        font-size: 2.5rem;
+        font-weight: 600;
+        transform-style: preserve-3d;
+
+        &__desc {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 3rem;
+          margin-left: 10%;
+
+          .step-img {
+            transition: 0.3s;
+          }
+
+          &-title {
+            position: relative;
+            transition: 0.3s;
+          }
+
+          &-text {
+            position: absolute;
+            width: 70%;
+            left: 16%;
+            top: 50%;
+            transition: 0.45s;
+          }
+
+          .text-left {
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: 0;
+          }
+
+          .text-right {
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: right;
+          }
+
+          &:hover .step-img {
+            transform: rotateY(50deg);
+          }
+
+          &:hover .step__desc-title {
+            transform: translateY(-30px);
+            opacity: 0;
+          }
+
+          &:hover .text-left {
+            transform: translateY(-50%) scaleX(1);
+          }
+
+          &:hover .text-right {
+            transform: translateY(-50%) scaleX(1);
+          }
+        }
+
+        &__desc.step-2 {
+          flex-direction: row-reverse;
+          margin-right: 10%;
         }
       }
     }
@@ -79,29 +160,35 @@
         0% {
           background-size: 120%;
           background-position: 50% 50%
-      }
-      20% {
+        }
+
+        20% {
           background-size: 150%;
           background-position: 0 50%;
-      }    
-      40% {
+        }
+
+        40% {
           background-size: 110%;
           background-position: 20% 80%;
-      }
-      60% {
+        }
+
+        60% {
           background-size: 160%;
           background-position: 60% 10%;
-      }
-      80% {
+        }
+
+        80% {
           background-size: 120%;
           background-position: 40% 70%;
-      }    
-      100% {
+        }
+
+        100% {
           background-size: 120%;
           background-position: 50% 50%
-      }
+        }
       }
     }
+
     .next-section {
       @include scroll-button();
     }

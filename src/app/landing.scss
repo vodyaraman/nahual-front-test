@@ -59,6 +59,13 @@
       font-size: 4.5rem;
       text-align: right;
     }
+
+    .about-work__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 9rem;
+    }
+
   }
 
   // --- ABOUT WORK START ---

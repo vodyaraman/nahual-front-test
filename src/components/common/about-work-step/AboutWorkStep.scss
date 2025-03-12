@@ -1,43 +1,47 @@
-.about-work__steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.step {
+    font-size: 2.5rem;
+    font-weight: 600;
+    transform-style: preserve-3d;
 
-    .step {
-        font-size: 2.5rem;
-        font-weight: 600;
-        transform-style: preserve-3d;
+    &__desc {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        margin-left: 10%;
 
-        &__desc {
+        .step-img {
+            transition: 0.3s;
+        }
+
+        figcaption {
+            width: 60%;
+        }
+
+        &-title {
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-left: 10%;
-
-            .step-img {
-                transition: 0.3s;
-            }
-
-            &-title {
-                position: relative;
-                transition: 0.3s;
-            }
-
-            &-text {
-                position: absolute;
-                width: 70%;
-                left: 16%;
-                top: 50%;
-                transition: 0.45s;
-            }
-
-
+            transition: 0.3s;
         }
 
-        &__desc.step-2 {
-            flex-direction: row-reverse;
-            margin-right: 10%;
+        &-text {
+            transition: 0.45s;
         }
+    }
+
+    &__desc--right {
+        flex-direction: row-reverse;
+        margin-right: 10%;
+        margin-left: 0;
+    }
+
+    .title--right {
+        justify-self: flex-end;
+    }
+
+    .text--right {}
+
+    &__desc.step-2 {
+        flex-direction: row-reverse;
+        margin-right: 10%;
     }
 }

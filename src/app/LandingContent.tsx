@@ -2,7 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Данные
 import { contentData } from "@/data/contentData";
+import { aboutWorkData } from "@/data/aboutWorkData";
 
 // Компоненты
 import { CardHand } from "@/components/common/pricing/CardHand";
@@ -102,7 +105,7 @@ export default function LandingContent() {
 
         <div className="card-grid">
           {contentData.slice(1).map((card, index) => (
-            <Card key={index + 1} head={card.head} body={card.body} />
+            <Card key={index + 1} head={card.head} body={card.body} link={card.link === null ? undefined : card.link} />
           ))}
         </div>
       </section>
@@ -112,7 +115,17 @@ export default function LandingContent() {
         <h2 className="about-work__title">Как это работает?</h2>
 
         <div className="about-work__steps">
-          <AboutWorkStep index={1} imgUrl="/step-1.png" title="Шаг первый" text={'Some text about how it works '} />
+          {
+            aboutWorkData.map(step =>
+              <AboutWorkStep
+                key={step.id}
+                side={step.side}
+                imgUrl={step.imageUrl}
+                title={step.title}
+                text={step.text}
+              />
+            )
+          }
         </div>
       </section>
 

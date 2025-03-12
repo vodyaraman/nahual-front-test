@@ -17,10 +17,11 @@ type Props = {
     imgUrl: string,
     title: string,
     text: string,
-    index: number,
+    index?: number,
 }
 
-export default function AboutWorkStep({ imgUrl, title, text, index }: Props) {
+export default function AboutWorkStep({ imgUrl, title, text, }: Props) {
+    const targetStep = useRef(null);
     gsap.registerPlugin(ScrollTrigger);
 
     useGSAP(() => {
@@ -43,7 +44,7 @@ export default function AboutWorkStep({ imgUrl, title, text, index }: Props) {
 
     return (
 
-        <div className="step">
+        <div className="step" ref={targetStep}>
             <figure className="step__desc">
                 <Image className="step-img" src={imgUrl} alt="step-1" width={250} height={250} />
                 <figcaption>
